@@ -1,0 +1,205 @@
+[c/7f2440:Fall of Zen] - [c/85d1e6:Rise of End] - Update of the Environment
+Includes: 1 Town NPC, Lots of New Tiles and Furniture
+
+The fall of global peace causes catastrophy acrost the universe
+and, beyond. The fate of the world is rested in your hands...
+
+Credits:
+Zen - Lead Programmer
+Pyxx (LunchBox) - Artist, Programmer
+NekoTheCat - Programmer
+Crasher - Artist
+NoFace Music - Musicain
+
+Changelog:
+
+v2.7.5:
+Added new attack for Spark Guardian when below 50% HP.
+Complete texture overhaul!
+Increased All Spark Guardian Speed.
+Added Koi rod.
+
+v2.7.8:
+Added Full credit for jupitererer!
+Vantity for jupitererer!
+Added Zenitrin Hamaxe.
+Added special "Lerp" rarity.
+
+v2.7.8.9:
+Added Post Skeletron Crafting Material.
+Added Recipe Shimazu Masamune.
+
+v2.8.2:
+Added lots of slimy stuff...
+
+v2.8.2.1:
+Fixed Slime Set Bug.
+
+v2.8.3.1:
+Added "Zirt".
+Added Biome Gen.
+Added Structure Gen.
+Changed Picaxe Power For Zen-Stone.
+
+v2.8.4:
+Added Deep Digger.
+Added Peace Keeper Set. (All Classes)
+Added Jupiter's Dedecated Content Item.
+
+v2.8.9:
+Added Ignis Trees.
+Added Ignis Wood.
+Added Ignis Sapling.
+Added Arkanoma.
+Added Description To Soul of Daniel's Rage.
+Added Ignis Tree Gore.
+Fixed Bug With Abyss. (Shooting From Below)
+
+v2.9.0:
+Added Better Circle for Spark's Attacks.
+Added More Spark Attacks.
+Added A better shoot for Zen-Stone Barrage.
+Nerfed Slime Set.
+Added Cursed Tizona - (Ichor Spire Corruption Ver.)
+Ichor Spire Now Shoots A Projectile.
+
+v2.9.0.2:
+Bug-Fixed Cursed Tizona Recipe & Made Ichor Spire's Shoot Speed Slower & Nerfed Spark's Damage.
+Fixed v2.9.0 Changelog.
+
+v2.9.0.3:
+Added Star Ring.
+Added New Shaders.
+Added Mango Dye.
+Fixed Slime Set Bonus.
+Fixed Sparks Damage, Fixed Insta Kill.
+[c/adadad:Removed ?.]
+
+v2.9.1.3
+Added Screen Filter For Spark.
+Added Stroke Dye.
+Changed The Mod Icon.
+
+v2.9.1.4
+Added Star Necklace.
+Added Zen Dye.
+Finnaly Changed The Moon Lord's Bane's Texture.
+Added Test Boss.
+
+v2.9.1.5
+Added Toxic Grenade.
+Added Butherer.
+Formaly Added Erichus.
+Erichus -
+ Fixed Dash.
+ Fixed AI.
+ Fixed Dust Effects.
+
+v2.9.1.6
+Added ToxicBarrel.
+
+v2.9.1.7
+Added CUTE VOID BUNNY! :0
+Added Delicious Jade.
+
+v2.9.1.8
+Added Recipe For Evading Flame.
+Added Erichus Bag.
+Added Toxic Revolverator.
+Fixed Non-Melee Bug.
+Changed The Dust on the Toxyth.
+Added Test Beta Summon For Erichus.
+Added Gwerp.
+
+v2.9.1.9
+Changed/Fixed Nuclear Rotation.
+
+v2.9.2.0
+Fixed Eric Items Many Bugs.
+Made SteamPunker Sell Erichus Items.
+Added Eric Trophy.
+Polished Toxic Revolverator.
+Made AlchemistNPC Musicain Sell Music Boxes.
+"Buffed" Hanging Void.
+Added Eric Boss Summon.
+Added Eric Mask.
+
+v2.9.2.1
+Fixed Multiplayer Bugs.
+Fixed All lighting bugs.
+Fixed Slime Sword Game Crash.
+
+v2.9.2.2
+Upgraded Eric Shrine.
+
+v2.9.2.3
+Upgraded Toxic Ruble.
+Upgraded Erichus.
+Upgraded Erichus Lore.
+Turned my spriteBatch into matrix.
+Fixed Shrine(TrashCan) sprite.
+Added Eric Boss Checklist.
+Added Eric Music Box.
+
+v2.9.2.4
+"Fixed" Eric Shrine On multiplayer.
+
+v2.9.3.4
+Added a multiplayer counter to Eric shrine.
+Added Zen Grass.
+Added a TON of biome stuff.
+Changed map border.
+Added a new wing.
+Added New Music.
+Added more world gen!
+Added Zenitrin Gun And Kunai.
+
+v2.9.3.5
+FINNALY fixed erichus on multiplayer... (I HOPE)
+
+v2.9.3.6
+Added Plants.
+
+v2.9.3.7
+Spooktober.
+Added some throwing cards.
+
+v2.9.3.8
+Changed Title.
+Added Z E N.
+
+v3.0
+New Stuff.
+Primordial Thunder added.
+MoonLord's Bane Do Over.
+
+v3.1
+Primordial Thunder Bugfix.
+Gave Zen A Right Hand.
+
+v3.2
+Gave Zen A Left hand.
+
+v3.3
+New Zen Items. DO NOT FIGHT THE BOSS YET!!!
+
+v3.4
+Mech Zen Complete!
+New Mod Icon.
+Revamped Some textures.
+And fixed the zen trident. more like tri.dent. in my head.
+
+v3.5
+Added the Cryo Depths.
+Added An Alter.
+Added A UNFINISHED item found in ice chests.
+
+v3.6
+I promise im not dead. (probably not.)
+Added Faceless.
+Added Event Item Supernova.
+Changed the music for Spark Guardian.
+Nerfed Mech Zen.
+Nerfed Erichus.
+Fixed Crash Bug From Void Sheath.
+Balanced Alot of Items, Prices and boss HP.

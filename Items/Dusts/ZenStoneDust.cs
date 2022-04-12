@@ -1,0 +1,34 @@
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ZensTweakstest.Items.Dusts
+{
+    public class ZenStoneDust : ModDust
+    {
+		public override void OnSpawn(Dust dust)
+		{
+			dust.velocity *= 0.4f;
+			dust.noGravity = true;
+			dust.noLight = true;
+			dust.scale *= 0.99f;
+		}
+
+		public override bool Update(Dust dust)
+		{
+			dust.position += dust.velocity;
+			dust.rotation += dust.velocity.X * 0.15f;
+			dust.scale *= 0.99f;
+			if (dust.scale < 0.5f)
+			{
+				dust.active = false;
+			}
+			else
+			{
+				float strength = 2f;
+				Lighting.AddLight(dust.position, Color.Red.ToVector3() * strength);
+			}
+			return false;
+		}
+	}
+}

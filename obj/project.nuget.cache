@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZVeaDxxcPvoIim3+CgwagTGbTYrb6/pbgmCW/Ek5lwmSleKHAZ5n+GCZLosEGfpEwNVQpigoyTpImooOeRPI3A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Carrie\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ZensTweakstest\\ZensTweakstest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Carrie\\.nuget\\packages\\tmodloader.codeassist\\0.1.2\\tmodloader.codeassist.0.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
