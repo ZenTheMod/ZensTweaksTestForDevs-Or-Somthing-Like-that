@@ -9,6 +9,7 @@ using ZensTweakstest.Items.NewZenStuff.Items;
 using ZensTweakstest.Items.JupiterStuff;
 using ZensTweakstest.Items.JupiterStuff.Pet;
 using ZensTweakstest.Config;
+using ZensTweakstest.Items.NewZenStuff.Items2Because1IsTooFull;
 
 namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.Bags
 {
@@ -40,6 +41,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.Bags
 
         public override void OpenBossBag(Player player)
         {
+            player.QuickSpawnItem(ModContent.ItemType<HellShineStaff>());
             if (Main.rand.Next(0, 15) == 4)
             {
                 player.QuickSpawnItem(ModContent.ItemType<JupiMask>());

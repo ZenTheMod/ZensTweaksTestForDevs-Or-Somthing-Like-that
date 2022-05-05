@@ -15,6 +15,14 @@ namespace ZensTweakstest.Items.Tiles
 			TileID.Sets.FramesOnKillWall[Type] = true; // Necessary since Style3x3Wall uses AnchorWall
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style6x3);
 			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.newTile.Height = 4;
+			TileObjectData.newTile.CoordinateHeights = new[]
+			{
+				16,
+				16,
+				16,
+				16
+			};
 			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.addTile(Type);
 

@@ -9,7 +9,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (The Battle of Shine - By Zen)");
+            DisplayName.SetDefault("Music Box (The Battle of Shine - By NoFace Music)");
         }
         public override void SetDefaults()
         {

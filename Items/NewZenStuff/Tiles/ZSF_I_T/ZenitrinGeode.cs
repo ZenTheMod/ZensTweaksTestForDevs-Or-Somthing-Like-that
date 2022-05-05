@@ -22,7 +22,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles.ZSF_I_T
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Zenitrin Crystal");
-            dustType = ModContent.DustType<ZenStoneDust>();
+            dustType = DustID.LifeDrain;
             AddMapEntry(new Color(100, 100, 100), name);
         }
     }

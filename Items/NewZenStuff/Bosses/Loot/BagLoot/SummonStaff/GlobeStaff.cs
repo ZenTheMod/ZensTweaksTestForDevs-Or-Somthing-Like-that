@@ -28,8 +28,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.SummonStaff
             item.damage = 83;
             item.knockBack = 3f;
             item.mana = 15;
-            item.width = 48;
-            item.height = 50;
+            item.width = 56;
+            item.height = 60;
             item.value = Item.buyPrice(0, 1, 50, 0);
             item.noMelee = true;
             item.summon = true;
@@ -49,7 +49,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.SummonStaff
             // change to match your animated texture of choice
             Texture2D texture = ModContent.GetTexture("ZensTweakstest/Items/NewZenStuff/Bosses/Loot/BagLoot/SummonStaff/GlobeStaffAni");
             int timeFramesPerAnimationFrame = 5;
-            int totalAnimationFrames = 8;
+            int totalAnimationFrames = 10;
 
             spriteBatch.Draw(texture, position, item.GetCurrentFrame(ref frame, ref frameCounter, timeFramesPerAnimationFrame, totalAnimationFrames), Color.White, 0f, origin, scale, SpriteEffects.None, 0);
             return false;
@@ -60,7 +60,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.SummonStaff
             // change to match your animated texture of choice
             Texture2D texture = ModContent.GetTexture("ZensTweakstest/Items/NewZenStuff/Bosses/Loot/BagLoot/SummonStaff/GlobeStaffAni");
             int timeFramesPerAnimationFrame = 5;
-            int totalAnimationFrames = 8;
+            int totalAnimationFrames = 10;
 
             spriteBatch.Draw(texture, item.position - Main.screenPosition, item.GetCurrentFrame(ref frame, ref frameCounter, timeFramesPerAnimationFrame, totalAnimationFrames), lightColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
             return false;
@@ -206,7 +206,9 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.SummonStaff
             #endregion
 
 
-            Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+            Dust dust;
+            dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+            dust.noGravity = true;
             float speed = 10f;
             float inertia = 40f;
             float distanceFromTarget = 700f;
@@ -284,9 +286,11 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.SummonStaff
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < (Main.expertMode ? 55 : 50); i++)
-            {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+            for (int f = 0; f < 30; f++)
+            { 
+                Dust dust;
+                dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+                dust.noGravity = true; 
             }
         }
     }

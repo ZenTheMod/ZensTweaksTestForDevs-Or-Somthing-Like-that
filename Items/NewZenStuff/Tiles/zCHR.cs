@@ -35,7 +35,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles
 			dustType = ModContent.DustType<Smokee>();
 
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Zen-Stone Chair");
+			name.SetDefault("Ignis Wood Chair");
 			AddMapEntry(new Color(107, 26, 26), name);
 
 			disableSmartCursor = true;

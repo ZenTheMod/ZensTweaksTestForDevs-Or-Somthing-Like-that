@@ -6,7 +6,9 @@ and, beyond. The fate of the world is rested in your hands...
 
 Credits:
 Zen - Lead Programmer
-Pyxx (LunchBox) - Artist, Programmer
+Pyxx (LunchBox) - Artist, Programmer.
+Daluyan Messes - Artist.
+SkippZz - Artist, Programmer.
 NekoTheCat - Programmer
 Crasher - Artist
 NoFace Music - Musicain
@@ -203,3 +205,42 @@ Nerfed Mech Zen.
 Nerfed Erichus.
 Fixed Crash Bug From Void Sheath.
 Balanced Alot of Items, Prices and boss HP.
+
+v3.7
+Portal Boss Rework.
+Fixed Some Old Tiles.
+More Pallete Recolors.
+Fixed like 72 bugs with Enfyshing.
+
+v3.8
+Added Wall Recipes For Some Tiles.
+Added Ignis Wood Furniture.
+Reworked Lore. (effects wowo)
+Added a new structure.
+Nerfed Spark Guardian.
+Added a "saftey box" for Spark.
+More resprites.
+Undustified Spark.
+Nerfed Erichus.
+
+v3.8.1
+Forgor Walls.
+Forgor Item.
+Forgor Banners.
+BEANS.
+Made Spark More intimidating.
+Made the void hang.
+Made dusts better
+
+v3.8.2
+Added Hell Shine Staff.
+Gave Spark A New Attack.
+Resprites and refuctions.
+Nerfed Slime Items.
+Added Ice Staff.
+Added Ice Sword.
+Added Ice Gun.
+Added Ice Summon
+More Visual Changes.
+Reworked Peeve AI.
+Reworked Zen Biome.

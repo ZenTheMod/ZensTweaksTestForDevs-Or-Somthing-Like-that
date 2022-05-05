@@ -10,8 +10,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zen-Stone Spirit Banner");
-            Tooltip.SetDefault("Nearby players get a bonus against: [c/32FF82:Zen-Stone Spirit]");
+            DisplayName.SetDefault("Zen Stone Spirit Banner");
+            Tooltip.SetDefault("Nearby players get a bonus against: ZenStone Spirit");
         }
 
         public override void SetDefaults()

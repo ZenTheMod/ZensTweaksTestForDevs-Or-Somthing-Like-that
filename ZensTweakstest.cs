@@ -84,11 +84,16 @@ namespace ZensTweakstest
                 GameShaders.Armor.BindShader(ModContent.ItemType<Items.NewNonZen.MovingMangoDye>(), new ArmorShaderData(new Ref<Effect>(GetEffect("Effects/Mango")), "Light"));
                 GameShaders.Armor.BindShader(ModContent.ItemType<Items.NewNonZen.StrokeDye>(), new ArmorShaderData(new Ref<Effect>(GetEffect("Effects/Lazer")), "Lazer"));
                 GameShaders.Armor.BindShader(ModContent.ItemType<Items.NewNonZen.ZenDye>(), new ArmorShaderData(new Ref<Effect>(GetEffect("Effects/ZenDye")), "Zen"));
-                Filters.Scene["ZensTweakstest:SparkGaurdian"] = new Filter(new SparkShaderData("FilterMiniTower").UseColor(0.815f, 0.329f, 0.360f).UseOpacity(0.6f), EffectPriority.VeryHigh);
+                GameShaders.Armor.BindShader(ModContent.ItemType<Items.NewNonZen.GlyphDye>(), new ArmorShaderData(new Ref<Effect>(GetEffect("Effects/WaveWrapArmor")), "WaveWrapArmor"));
+                Filters.Scene["ZensTweakstest:SparkGaurdian"] = new Filter(new SparkShaderData("FilterMiniTower").UseColor(0.972f, 0.254f, 0.305f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 Filters.Scene["ZensTweakstest:Eric"] = new Filter(new SparkShaderData("FilterMiniTower").UseColor(0.058f, 0.658f, 0.070f).UseOpacity(0.6f), EffectPriority.VeryHigh);
                 Filters.Scene["ZensTweakstest:BiomeZenFilter"] = new Filter(new SparkShaderData("FilterMiniTower").UseColor(0.219f, 0.149f, 0.298f).UseOpacity(0.6f), EffectPriority.VeryHigh);
 
                 Filters.Scene["ZensTweakstest:Portal"] = new Filter(new SparkShaderData("FilterMiniTower").UseColor(Main.DiscoR / 255f, Main.DiscoG / 255f, Main.DiscoB / 255f).UseOpacity(0.3f), EffectPriority.VeryHigh);
+                Ref<Effect> shaderRef = new Ref<Effect>(GetEffect("Effects/overlay"));
+                shaderRef = new Ref<Effect>(GetEffect("Effects/WaveWrapZ"));
+                GameShaders.Misc["WaveWrapZ"] = new MiscShaderData(shaderRef, "WaveWrap");
+                Filters.Scene["WaveWrapZ"] = new Filter(new ScreenShaderData(shaderRef, "WaveWrap"), EffectPriority.Medium);
                 //Filters.Scene["ZensTweakstest:SparkGaurdian"].Load();
             }
         }

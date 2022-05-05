@@ -111,6 +111,13 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot.Solutions
 							WorldGen.SquareTileFrame(k, l, true);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
+						if (type == TileID.Stalactite)
+						{
+							Main.tile[k, l].type = (ushort)ModContent.TileType<AmbeintZen1X2T>();
+							//Main.tile[k, l - 1].type = (ushort)ModContent.TileType<AmbeintZen1X2T>();
+							WorldGen.SquareTileFrame(k, l, true);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
 					}
 				}
 			}

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using ZensTweakstest.Helper;
 
 namespace ZensTweakstest.Prefixes
 {
@@ -83,21 +86,29 @@ namespace ZensTweakstest.Prefixes
 			}
 			return -1;
 		}
+        public override bool PreDrawTooltipLine(Item item, DrawableTooltipLine line, ref int yOffset)
+        {
+			if (item.prefix == ModContent.PrefixType<SwordPrefix>())
+			{
+				if (line.mod == "Terraria" && line.Name == "ItemName")
+				{
+					Vector2 messageSize = Helplul.MeasureString(line.text);
+					Rectangle rec = new Rectangle(line.X - 40, line.Y - 2, (int)messageSize.X + 88, (int)messageSize.Y);
+					// we end and begin a Immediate spriteBatch for shader
+					Main.spriteBatch.BeginImmediate(true, true);
+					GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+					Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, Color.Black);
+					Main.spriteBatch.BeginImmediate(true, true, true);
+					GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+					Color color = Helplul.CycleColor(new Color(244, 224, 58), new Color(50, 42, 88));
+					Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, color);
 
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			//if (!item.social && item.prefix > 0)
-			//{
-				//int awesomeBonus = awesome - Main.cpItem.GetGlobalItem<InstancedGlobalItem>().awesome;
-				//if (awesomeBonus > 0)
-				//{
-					//TooltipLine line = new TooltipLine(mod, "PrefixAwesome", "+" + awesomeBonus + " awesomeness")
-					//{
-						//isModifier = true
-					//};
-					//tooltips.Add(line);
-				//}
-			//}
+					Main.spriteBatch.BeginImmediate(true, true);
+					Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1);
+					return false;
+				}
+			}
+			return true;
 		}
-	}
+    }
 }

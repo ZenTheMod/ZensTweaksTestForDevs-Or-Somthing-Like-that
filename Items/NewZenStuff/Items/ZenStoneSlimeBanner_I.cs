@@ -10,8 +10,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zen-Stone Slime Banner");
-            Tooltip.SetDefault("Nearby players get a bonus against: [c/32FF82:Zen-Stone Slime]");
+            DisplayName.SetDefault("Zen Stone Slime Banner");
+            Tooltip.SetDefault("Nearby players get a bonus against: Zen Stone Slime");
         }
 
         public override void SetDefaults()

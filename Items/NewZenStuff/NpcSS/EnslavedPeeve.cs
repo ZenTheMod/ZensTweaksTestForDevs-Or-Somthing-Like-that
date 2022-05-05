@@ -40,6 +40,7 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
 
             npc.HitSound = SoundID.NPCHit35;
             npc.DeathSound = SoundID.NPCDeath39;
+            bannerItem = ModContent.ItemType<PeeveBanner_I>();
         }
         public override void NPCLoot()
         {
@@ -76,19 +77,23 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
             Player player = Main.player[npc.target];
             if ((npc.life) >= 125)
             {
-                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, DustID.LifeDrain, npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
                 npc.rotation = (npc.Center - player.Center).ToRotation();
                 npc.TargetClosest();  //Get a target
                 Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
-                npc.velocity = direction * 6.5f;
+                npc.velocity += direction * 10f / 60f;//SPEEEED
+                if (npc.velocity.LengthSquared() > 10 * 10)
+                    npc.velocity = Vector2.Normalize(npc.velocity) * 10;
             }
             else
             {
-                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, DustID.LifeDrain, npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
                 npc.rotation = (npc.Center - player.Center).ToRotation();
                 npc.TargetClosest();  //Get a target
                 Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
-                npc.velocity = direction * 10f;
+                npc.velocity += direction * 13f / 60f;//SPEEEED
+                if (npc.velocity.LengthSquared() > 13 * 13)
+                    npc.velocity = Vector2.Normalize(npc.velocity) * 13;
             }
         }
     }

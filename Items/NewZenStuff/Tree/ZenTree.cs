@@ -131,4 +131,32 @@ namespace ZensTweakstest.Items.NewZenStuff.Tree
 				effects = SpriteEffects.FlipHorizontally;
 		}
 	}
+	public class IgnisWoodWall : ModItem
+    {
+		public override void SetDefaults()
+		{
+			item.width = 32;
+			item.height = 32;
+			item.maxStack = 999;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.value = Item.buyPrice(silver: 1);
+			item.rare = 4;
+			item.useTime = 7;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.createWall = ModContent.WallType<IgnisWoodWallPlaced>();
+		}
+	}
+	public class IgnisWoodWallPlaced : ModWall
+	{
+		public override void SetDefaults()
+		{
+			Main.wallHouse[Type] = true;
+			dustType = DustID.BorealWood;
+			drop = ModContent.ItemType<IgnisWoodWall>();
+			AddMapEntry(new Color(46, 26, 57));
+		}
+	}
 }

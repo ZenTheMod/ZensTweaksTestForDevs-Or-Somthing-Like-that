@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ZensTweakstest.Items.NewZenStuff.Bosses;
+using ZensTweakstest.Items.TheBanners;
 
 namespace ZensTweakstest.Items.NewZenStuff.Biome.WormAttempt
 {
@@ -18,6 +19,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Biome.WormAttempt
 			npc.aiStyle = -1;
 			npc.width = 22;
 			npc.height = 28;
+			banner = npc.type;
+			bannerItem = ModContent.ItemType<DeepDiggerBanner>();
 		}
 
 		public override void Init()

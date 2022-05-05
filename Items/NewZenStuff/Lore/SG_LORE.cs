@@ -12,10 +12,10 @@ namespace ZensTweakstest.Items.NewZenStuff.Lore
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Spark Guardian");
-            Tooltip.SetDefault("A collection of powerful Zen-Stone Peeves given a vesel to possess." +
-                "\nEven peeves, a uncontrolable type of spirit, can be controled." +
-                "\nThis powerful collection dubbed -The Spark Guardian- lives to protect." +
-                "\nEven when theirs nothing to protect.");
+            Tooltip.SetDefault("Zen's 2nd line of defenses." +
+                "\nMy studies have found Zen to be able to create living creatures." +
+                "\nAll painted blood red. " +
+                "\nHe seems to possess more power than I expected.");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 

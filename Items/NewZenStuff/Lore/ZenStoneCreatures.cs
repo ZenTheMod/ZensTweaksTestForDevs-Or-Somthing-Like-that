@@ -4,6 +4,7 @@ using Terraria.ID;
 using ZensTweakstest.Items.NewZenStuff.Items;
 using Microsoft.Xna.Framework;
 using ZensTweakstest.Config;
+using ZensTweakstest.Items.NewZenStuff.Tree;
 
 namespace ZensTweakstest.Items.NewZenStuff.Lore
 {
@@ -11,9 +12,9 @@ namespace ZensTweakstest.Items.NewZenStuff.Lore
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zen Stone Creatures");
-            Tooltip.SetDefault("Creations of a once great God, Barely clinging on to life;" +
-                "\nThese abominations hold celestial evils inside their once pure cores." +
+            DisplayName.SetDefault("Zen's Creatures");
+            Tooltip.SetDefault("Creations of Zen, Barely clinging on to life;" +
+                "\nThese abominations hold part of his and my power inside them." +
                 "\nThey've found safety down in the underworld feeding off its heat.");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
@@ -52,8 +53,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Lore
             ModRecipe POOP = new ModRecipe(mod);
 
             POOP.AddIngredient(ItemID.HellstoneBar, 1);
-            POOP.AddIngredient(ModContent.ItemType<ZenitrinOre_I>(), 30);
-            POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 500);
+            POOP.AddIngredient(ModContent.ItemType<IgnisWood>(), 5);
+            POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 20);
             POOP.AddTile(TileID.MythrilAnvil);
             POOP.SetResult(this);
             POOP.AddRecipe();

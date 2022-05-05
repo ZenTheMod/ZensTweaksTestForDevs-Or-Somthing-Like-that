@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using ZensTweakstest.Items.NewZenStuff.Tiles;
 
 namespace ZensTweakstest.Items.NewZenStuff.Items
 {
@@ -25,6 +26,15 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
             item.useAnimation = 10;
             item.autoReuse = true;
             item.createTile = mod.TileType("ZenStone");
+        }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<ZSWI>());
+
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(this, 4);
+            recipe.AddRecipe();
         }
     }
 }

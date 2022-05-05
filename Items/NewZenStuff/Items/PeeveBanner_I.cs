@@ -11,7 +11,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zen Stone Peeve Banner");
-            Tooltip.SetDefault("Nearby players get a bonus against: [c/32FF82:Zen-Stone Peeve]");
+            Tooltip.SetDefault("Nearby players get a bonus against: Zen Stone Peeve");
         }
 
         public override void SetDefaults()

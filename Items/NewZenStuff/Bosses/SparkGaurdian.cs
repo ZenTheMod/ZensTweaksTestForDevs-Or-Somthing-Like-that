@@ -17,6 +17,8 @@ using ZensTweakstest.Items.JupiterStuff.Pet;
 using Terraria.DataStructures;
 using ZensTweakstest.Items;
 using ZensTweakstest.Items.NewZenStuff.Projectilles;
+using ZensTweakstest.Helper;
+using ZensTweakstest.Items.NewZenStuff.Items2Because1IsTooFull;
 
 namespace ZensTweakstest.Items.NewZenStuff.Bosses
 {
@@ -48,13 +50,6 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
         private int attackTimer = 0;
         private bool fastSpeed = false;
 
-        private bool stunned;
-        //Junk
-        private int stunTimer;
-
-        private int frame = 0;
-        private double counting;
-
         public override void SetStaticDefaults()
         {
             //Name
@@ -75,8 +70,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
             npc.aiStyle = -1;
             npc.npcSlots = 5f;
 
-            npc.lifeMax = 80000;
-            npc.damage = 200;
+            npc.lifeMax = 35000;
+            npc.damage = 120;
             npc.defense = 16;
             npc.knockBackResist = 0f;
             Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
@@ -109,6 +104,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SantaHata"), npc.Center - Main.screenPosition + new Vector2(0, -50), null, Color.White, 0, new Vector2(18, 18), 2f, SpriteEffects.None, 0f);
             }
         }
+        int flametrail = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             for (int num93 = 1; num93 < npc.oldPos.Length; num93++)
@@ -157,10 +153,10 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 GlareTime++;
                 float rotation = PacifistE + 1f;
                 float AntiRotation = -rotation;
-                spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(254, 84, 92), rotation, og, ScaleE, SpriteEffects.None, 0f);
+                spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(248, 65, 78), rotation, og, ScaleE, SpriteEffects.None, 0f);
                 if (AntiE == true)
                     {
-                    spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(254, 84, 92), AntiRotation, og, ScaleE2, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(248, 65, 78), AntiRotation, og, ScaleE2, SpriteEffects.None, 0f);
                     }
                 ScaleE -= 0.01f;
                 ScaleE2 -= 0.01f;
@@ -168,7 +164,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 {
                     if (ScaleE <= 0f)
                     {
-                        for (int i = 0; i < (Main.expertMode ? 95 : 90); i++)
+                        for (int i = 0; i < 30; i++)
                         {
                             Dust.NewDust(npc.position + npc.velocity, npc.width + 75, npc.height + 75, ModContent.DustType<ZenStoneFlameDustOpacity>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
                         }
@@ -209,10 +205,10 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 glareetim++;
                 float rotation = PacifistE + 1f;
                 float AntiRotation = -rotation;
-                spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(252, 182, 3), rotation, og, ScaleEE, SpriteEffects.None, 0f);
+                spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(248, 65, 78), rotation, og, ScaleEE, SpriteEffects.None, 0f);
                 if (AntiE == true)
                 {
-                    spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(252, 182, 3), AntiRotation, og, ScaleE2E, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/SpiceSphere"), npc.Center - Main.screenPosition, null, new Color(248, 65, 78), AntiRotation, og, ScaleE2E, SpriteEffects.None, 0f);
                 }
                 ScaleEE -= 0.01f;
                 ScaleE2E -= 0.01f;
@@ -239,6 +235,9 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                     }
                 }
             }
+            //we aint done yet
+            if (flametrail > 800)
+                spriteBatch.Draw(mod.GetTexture("Items/NewZenStuff/Bosses/WDTAFSFBTTMball"), npc.Center - Main.screenPosition, null, Color.White, PacifistE / 5f, new Vector2(50,50), 1f, SpriteEffects.None, 0f);
             #endregion
             return true;
         }
@@ -246,7 +245,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
         {
             npc.frameCounter += 1;
             //Reset the counter every 60 ticks
-            if (npc.frameCounter >= 60)
+            if (npc.frameCounter >= 75)
                 npc.frameCounter = 0;
 
             //Swap the frame used every 30 ticks
@@ -279,212 +278,292 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/ZANHAN"), npc.scale);
             }
         }
+        byte state;
+        const byte statedash = 1;
+        const byte stategooffset = 0;
+        int shriek = 0;
         public override void AI()
         {
-            PacifistE++;
-            Pacifist++;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
             Vector2 target = npc.HasPlayerTarget ? player.Center : Main.npc[npc.target].Center;
             npc.rotation = 0.0f;
             npc.TargetClosest(true);
-            if (Pacifist == 10000)
+            if (shriek < 100)
             {
-                Main.PlaySound(SoundID.DD2_BetsyFlameBreath, npc.position);
-            }
-            if (npc.target < 0 || npc.target == 255 || player.dead)
-            {
-                npc.TargetClosest(false);
-                npc.direction = 1;
-
-                npc.velocity.Y = npc.velocity.Y - 0.1f;
-                if (npc.timeLeft > 20)
+                shriek++;
+                if (shriek == 1)
                 {
-                    npc.timeLeft = 20;
-                    return;
+                    Player player2 = Main.player[Main.myPlayer];
+                    player2.CameraShake(23, 50);
+                    Main.PlaySound(SoundID.NPCDeath10, npc.position);
                 }
             }
-            ai++;
-
-            npc.ai[0] = (float)ai * 1f;
-            int distance = (int)Vector2.Distance(target, npc.Center);
-            if((double)npc.ai[0] < 300)
-            {//basic move
-                npc.TargetClosest();  //Get a target
-                Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
-                npc.velocity += direction * 7f / 60f;//SPEEEED
-                if (npc.velocity.LengthSquared() > 7 * 7)
-                    npc.velocity = Vector2.Normalize(npc.velocity) * 10;
-            } else if((double)npc.ai[0] >= 300 && (double)npc.ai[0] < 450.0)
+            else
             {
-                stunned = true;
-                npc.defense = 20;
-                npc.damage = 50;
+                flametrail++;
+                PacifistE++;
+                Pacifist++;
+                if (flametrail < 800)
+                {
+                    if (Pacifist == 10000)
+                    {
+                        Main.PlaySound(SoundID.DD2_BetsyFlameBreath, npc.position);
+                    }
+                    if (npc.target < 0 || npc.target == 255 || player.dead)
+                    {
+                        npc.TargetClosest(false);
+                        npc.direction = 1;
 
-                npc.TargetClosest();  //Get a target
-                Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
-                npc.velocity = direction * 3f;
-            } else if((double)npc.ai[0] >= 450.0)
-            {
-                stunned = false;
-                npc.damage = 75;
-                npc.defense = 15;
-                if (!fastSpeed)
-                {
-                    NPC.NewNPC((int)npc.position.X + Main.rand.Next(0, npc.width), (int)npc.position.Y + Main.rand.Next(0, npc.height), ModContent.NPCType<EnslavedPeeve>());
-                    Main.PlaySound(SoundID.Camera, npc.position, 0);
-                    fastSpeed = true;
-                }
-                else
-                {
-                    if ((double)npc.ai[0] % 50 == 0)
-                    {//DASHING
-                        if (Main.rand.Next(0, 9) == 1)
+                        npc.velocity.Y = npc.velocity.Y - 0.1f;
+                        if (npc.timeLeft > 20)
                         {
-                            NPC.NewNPC((int)npc.position.X + Main.rand.Next(0, npc.width), (int)npc.position.Y + Main.rand.Next(0, npc.height), ModContent.NPCType<ZenSwordNPC>());
+                            npc.timeLeft = 20;
+                            return;
                         }
-                        for (int i = 0; i < (Main.expertMode ? 55 : 50); i++)
-                        {
-                            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-                        }
-                        Main.PlaySound(SoundID.DD2_SonicBoomBladeSlash, npc.position);
+                    }
+                    ai++;
+                    if (npc.ai[0] == 200)
+                        state = stategooffset;
+                    npc.ai[0] = (float)ai * 1f;
+                    int distance = (int)Vector2.Distance(target, npc.Center);
+                    if (npc.ai[0] < 450.0)
+                    {//basic move
                         npc.TargetClosest();  //Get a target
                         Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
-                        npc.velocity = direction * 12f;//SPEEED
-                        if (FiftyPerCesAttac)
+                        npc.velocity += direction * 7f / 60f;//SPEEEED
+                        if (npc.velocity.LengthSquared() > 7 * 7)
+                            npc.velocity = Vector2.Normalize(npc.velocity) * 10;
+                    }
+                    else if (npc.ai[0] >= 450.0)
+                    {
+                        if (!fastSpeed)
                         {
-                            Vector2 shootPos = npc.Center;
-                            float accuracy = 5f * (npc.life / npc.lifeMax);
-                            Vector2 shootVelO = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
-                            shootVelO = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);
-                            Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVelO.X, shootVelO.Y, mod.ProjectileType("ZenStoneFlameProj"), npc.damage - 50, 5f);
+                            NPC.NewNPC((int)npc.position.X + Main.rand.Next(0, npc.width), (int)npc.position.Y + Main.rand.Next(0, npc.height), ModContent.NPCType<EnslavedPeeve>());
+                            Main.PlaySound(SoundID.Camera, npc.position, 0);
+                            fastSpeed = true;
+                        }
+                        else
+                        {
+                            if (npc.ai[0] % 50 == 0)
+                            {//DASHING
+                                if (Main.rand.Next(0, 30) == 1)
+                                {
+                                    NPC.NewNPC((int)npc.position.X + Main.rand.Next(0, npc.width), (int)npc.position.Y + Main.rand.Next(0, npc.height), ModContent.NPCType<ZenSwordNPC>());
+                                }
+                                for (int i = 0; i < 15; i++)
+                                {
+                                    Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                                }
+                                if (FiftyPerCesAttac)
+                                {
+                                    Vector2 shootPos = npc.Center;
+                                    float accuracy = 5f * (npc.life / npc.lifeMax);
+                                    Vector2 shootVelO = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
+                                    shootVelO = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);
+                                    Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVelO.X, shootVelO.Y, mod.ProjectileType("ZenStoneFlameProj"), npc.damage - 50, 5f);
+                                }
+                            }
+                        }
+                        npc.netUpdate = true;
+                    }
+
+                    if (state == stategooffset)
+                    {
+                        float offset = 400f;
+                        float dir = npc.position.X > player.position.X ? 1f : -1f;
+                        Vector2 pos = player.Center + new Vector2(offset * dir, 0);
+                        npc.position = Vector2.Lerp(npc.position, pos, 0.1f);
+                        if (Vector2.Distance(npc.position, pos) < 50f)
+                        {
+                            state = statedash;
                         }
                     }
-                }
-                npc.netUpdate = true;
-            }
-            #region ATTACK
-            //Attack Code
-            if ((double)npc.ai[0] % (Main.expertMode ? 100 : 150) == 0 && !stunned && !fastSpeed)
-            {
-                attackTimer++; //Increment the timer
-
-                if (attackTimer <= 2)// If big
-                {
-                    npc.velocity.X = 0f;//Slow boss down
-                    npc.velocity.Y = 0f;//Slow boss down
-                    Main.PlaySound(SoundID.DD2_WyvernDiveDown, npc.position);//sound
-                    Vector2 shootPos = npc.Center;
-                    float accuracy = 5f * (npc.life / npc.lifeMax);
-
-                    GlareYnESS = true;//effect
-                    for (int i = 0; i < (Main.expertMode ? 95 : 90); i++)
+                    if (state == statedash)
                     {
-                        Dust.NewDust(npc.position + npc.velocity, npc.width + 125, npc.height + 125, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        int numberofproj = 4;
+                        for (int i = 0; i < numberofproj; i++)
+                        {
+                            Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
+                            Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
+
+
+                            VelPos.Normalize();
+                            Projectile.NewProjectile(spawnPos, VelPos * 10f, ModContent.ProjectileType<ZenStoneFlameProj>(), 65, 5f);
+                            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        }
+                        Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
+                        npc.velocity = direction * 12f;//SPEEED
+                        state = 2;
                     }
-                    int numberofproj = 25;
-                    for (int i = 0; i < numberofproj; i++)
+                    if (Vector2.Distance(npc.position, player.position) > 2000f)
                     {
-                        Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
-                        Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
-
-
-                        VelPos.Normalize();
-                        Projectile.NewProjectile(spawnPos, VelPos * 8f, ModContent.ProjectileType<ZenSwordBeamEvil>(), 95, 5f);
-                        Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
+                        npc.velocity = direction * 12f;//SPEEED
                     }
-                    /*for (int i = 0; i < (15); i++)
+
+                    #region ATTACK
+                    //Attack Code
+                    if (npc.ai[0] % 150 == 0 && !fastSpeed)
                     {
-                        Vector2 shootVel = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
-                        Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-                        shootVel = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);//okish ring
-                        Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVel.X, shootVel.Y, mod.ProjectileType("ZenSwordBeamEvil"), npc.damage / 3, 5f);
-                    }//past this point is the orb*/
-                    Vector2 shootVelO = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
-                    shootVelO = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);
-                    Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVelO.X, shootVelO.Y, mod.ProjectileType("ZenStoneFlameProj"), 75, 5f);
+                        attackTimer++; //Increment the timer
+
+                        if (attackTimer <= 2)// If big
+                        {
+                            npc.velocity.X = 4f;//Slow boss down
+                            npc.velocity.Y = 4f;//Slow boss down
+                            Main.PlaySound(SoundID.DD2_WyvernDiveDown, npc.position);//sound
+                            Vector2 shootPos = npc.Center;
+                            float accuracy = 5f * (npc.life / npc.lifeMax);
+
+                            GlareYnESS = true;//effect
+                            for (int i = 0; i < 30; i++)
+                            {
+                                Dust.NewDust(npc.position + npc.velocity, npc.width + 125, npc.height + 125, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                            }
+                            int numberofproj = 15;
+                            for (int i = 0; i < numberofproj; i++)
+                            {
+                                Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
+                                Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
+
+
+                                VelPos.Normalize();
+                                Projectile.NewProjectile(spawnPos, VelPos * 8f, ModContent.ProjectileType<ZenSwordBeamEvil>(), 95, 5f);
+                                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                            }
+                            /*for (int i = 0; i < (15); i++)
+                            {
+                                Vector2 shootVel = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
+                                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                                shootVel = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);//okish ring
+                                Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVel.X, shootVel.Y, mod.ProjectileType("ZenSwordBeamEvil"), npc.damage / 3, 5f);
+                            }//past this point is the orb*/
+                            Vector2 shootVelO = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
+                            shootVelO = (Vector2.UnitX * 7.5f).RotatedByRandom(MathHelper.Pi);
+                            Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40), shootVelO.X, shootVelO.Y, mod.ProjectileType("ZenStoneFlameProj"), 75, 5f);
+                        }
+                        else
+                        {
+                            attackTimer = 0;//reset the attack
+                        }
+                    }
+                    #endregion
+                    #region PacifistBreak
+                    if (npc.life <= npc.lifeMax * 0.5f)
+                    {
+                        if (Pacifist >= 10000)
+                        {
+                            PacifistBol = true;
+                        }
+                        Pacifist = 0;
+                    }
+                    if (npc.life <= npc.lifeMax * 0.5f)
+                    {
+                        /*npc.width = 116;
+                        npc.height = 152;*/
+                        if (Main.rand.Next(0, 200) == 8)
+                        {
+                            int numberofproj = 10;
+                            for (int i = 0; i < numberofproj; i++)
+                            {
+                                Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
+                                Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
+
+
+                                VelPos.Normalize();
+                                Projectile.NewProjectile(spawnPos, VelPos * 10f, ModContent.ProjectileType<ZenStoneFlameProj>(), 65, 5f);
+                                Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                            }
+                        }
+                    }
+                    if (npc.life <= npc.lifeMax * 0.5f && !FiftyPerCesAttac)
+                    {
+                        npc.velocity.X = 5f;//Slow boss down
+                        npc.velocity.Y = 5f;//Slow boss down
+                        Main.PlaySound(SoundID.DD2_WyvernDiveDown, npc.position);//sound
+
+                        glareenes = true;//effect
+                        for (int i = 0; i < 20; i++)
+                        {
+                            Dust.NewDust(npc.position + npc.velocity, npc.width + 125, npc.height + 125, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        }
+                        int numberofproj = 8;
+                        for (int i = 0; i < numberofproj; i++)
+                        {
+                            Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
+                            Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
+
+
+                            VelPos.Normalize();
+                            Projectile.NewProjectile(spawnPos, VelPos * 12f, ModContent.ProjectileType<ZenFire>(), 99, 9f);
+                            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        }
+                        /*for (int i = 0; i < (10); i++)
+                        {
+                            Vector2 shootVel = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
+                            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                            shootVel = (Vector2.UnitX * 15.5f).RotatedByRandom(MathHelper.Pi);//okish ring
+                            Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40) + 5, shootVel.X, shootVel.Y, ModContent.ProjectileType<ZenFire>(), npc.damage, 5f);
+                        }*/
+                        FiftyPerCesAttac = true;
+                    }
+                    #endregion
+                    if (npc.ai[0] >= 650.0)
+                    {
+                        ai = 0;
+                        npc.alpha = 0;
+                        npc.ai[2] = 0;
+                        fastSpeed = false;
+                    }
                 }
                 else
                 {
-                    attackTimer = 0;//reset the attack
-                }
-            }
-            #endregion
-            #region PacifistBreak
-            if (npc.life <= npc.lifeMax * 0.5f)
-            {
-                if (Pacifist >= 10000)
-                {
-                    PacifistBol = true;
-                }
-                Pacifist = 0;
-            }
-            if (npc.life <= npc.lifeMax * 0.5f)
-            {
-                /*npc.width = 116;
-                npc.height = 152;*/
-                if (Main.rand.Next(0, 200) == 8)
-                {
-                    int numberofproj = 8;
-                    for (int i = 0; i < numberofproj; i++)
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoreFXGlow>(), 99, 9f);
+                    npc.TargetClosest();  //Get a target
+                    Vector2 direction = npc.DirectionTo(player.Center);  //Get a direction to the player from the NPC
+                    npc.velocity += direction * 15f / 60f;//SPEEEED
+                    if (npc.velocity.LengthSquared() > 15 * 15)
+                        npc.velocity = Vector2.Normalize(npc.velocity) * 15;
+                    if (flametrail > 1200)
                     {
-                        Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
-                        Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
-
-
-                        VelPos.Normalize();
-                        Projectile.NewProjectile(spawnPos, VelPos * 10f, ModContent.ProjectileType<ZenStoneFlameProj>(), 65, 5f);
-                        Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+                        flametrail = 0;
                     }
                 }
-            }
-            if (npc.life <= npc.lifeMax * 0.5f && !FiftyPerCesAttac)
-            {
-                npc.velocity.X = 0f;//Slow boss down
-                npc.velocity.Y = 0f;//Slow boss down
-                Main.PlaySound(SoundID.DD2_WyvernDiveDown, npc.position);//sound
-                Vector2 shootPos = npc.Center;
-                float accuracy = 5f * (npc.life / npc.lifeMax);
-
-                glareenes = true;//effect
-                for (int i = 0; i < (Main.expertMode ? 45 : 40); i++)
-                {
-                    Dust.NewDust(npc.position + npc.velocity, npc.width + 125, npc.height + 125, ModContent.DustType<ZenStoneFlameDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-                }
-                int numberofproj = 15;
-                for (int i = 0; i < numberofproj; i++)
-                {
-                    Vector2 spawnPos = new Vector2(npc.position.X + 58, npc.position.Y + 76);
-                    Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
-
-
-                    VelPos.Normalize();
-                    Projectile.NewProjectile(spawnPos, VelPos * 12f, ModContent.ProjectileType<ZenFire>(), 99, 9f);
-                    Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-                }
-                /*for (int i = 0; i < (10); i++)
-                {
-                    Vector2 shootVel = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
-                    Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-                    shootVel = (Vector2.UnitX * 15.5f).RotatedByRandom(MathHelper.Pi);//okish ring
-                    Projectile.NewProjectile(shootPos.X + (float)(-1 * npc.direction) + (float)Main.rand.Next(-40, 41), shootPos.Y - (float)Main.rand.Next(-50, 40) + 5, shootVel.X, shootVel.Y, ModContent.ProjectileType<ZenFire>(), npc.damage, 5f);
-                }*/
-                FiftyPerCesAttac = true;
-            }
-            #endregion
-            if ((double)npc.ai[0] >= 650.0)
-            {
-                ai = 0;
-                npc.alpha = 0;
-                npc.ai[2] = 0;
-                fastSpeed = false;
             }
         }
         public override void NPCLoot()
         {
+            if (Main.netMode != 1)
+            {
+                int num31 = (int)(npc.position.X + (float)(npc.width / 2)) / 16;
+                int num32 = (int)(npc.position.Y + (float)(npc.height / 2)) / 16;
+                int num33 = npc.width / 2 / 16 + 1;
+                for (int n = num31 - num33; n <= num31 + num33; n++)
+                {
+                    for (int num34 = num32 - num33; num34 <= num32 + num33; num34++)
+                    {
+                        if ((n == num31 - num33 || n == num31 + num33 || num34 == num32 - num33 || num34 == num32 + num33) && !Main.tile[n, num34].active())
+                        {
+                            Main.tile[n, num34].type = (ushort)ModContent.TileType<ZenitrinOre>();
+                            Main.tile[n, num34].active(active: true);
+                        }
+                        Main.tile[n, num34].lava(lava: false);
+                        Main.tile[n, num34].liquid = 0;
+                        if (Main.netMode == 2)
+                        {
+                            NetMessage.SendTileSquare(-1, n, num34, 1);
+                        }
+                        else
+                        {
+                            WorldGen.SquareTileFrame(n, num34);
+                        }
+                    }
+                }
+            }
             if (PacifistBol)
             {
-                for (int i = 0; i < (Main.expertMode ? 105 : 100); i++)
+                for (int i = 0; i < 20; i++)
                 {
                     Dust.NewDust(npc.position + npc.velocity, npc.width + 125, npc.height + 125, ModContent.DustType<HolyDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
                 }
@@ -552,7 +631,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
                 Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<ZenStoneDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
             }
             Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, ModContent.DustType<BossSparkle>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
-            for (int i = 0; i < (Main.expertMode ? 10 : 5); i++)
+            for (int i = 0; i < (Main.expertMode ? 5 : 2); i++)
             {
                 NPC.NewNPC((int)npc.position.X + Main.rand.Next(0, npc.width), (int)npc.position.Y + Main.rand.Next(0, npc.height), ModContent.NPCType<EnslavedPeeve>());
             }
@@ -563,14 +642,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
             }
             else
             {
-                if (Main.rand.Next(0, 15) == 4)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<JupiMask>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<JupiBody>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<JupiLegs>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<TheAbyss>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<BunnyPetItem>());
-                }
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<HellShineStaff>());
                 if (Main.rand.Next(0, 100) >= 90)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Cursed_Zen_Peeve_Essence>());

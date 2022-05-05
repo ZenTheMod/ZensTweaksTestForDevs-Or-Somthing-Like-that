@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using ZensTweakstest.Items.NewZenStuff.Tiles;
 using ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot;
+using ZensTweakstest.Items.NewZenStuff.Tree;
 
 namespace ZensTweakstest.Items.NewZenStuff.Items
 {
@@ -10,7 +11,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ZenStone Chair");
+            DisplayName.SetDefault("Ignis Wood Chair");
         }
 
         public override void SetDefaults()
@@ -25,8 +26,6 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
             item.useStyle = 1;
             item.consumable = true;
             item.rare = 8;
-            item.value = Item.buyPrice(silver: 25);
-            item.value = Item.sellPrice(silver: 20);
             item.createTile = mod.TileType("zCHR");
         }
 
@@ -34,23 +33,10 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
         {
             ModRecipe POOP = new ModRecipe(mod);
 
-            POOP.AddIngredient(ItemID.WoodenChair, 1);
-            POOP.AddIngredient(ModContent.ItemType<szsb>(), 30);
-            POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 50);
-            POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 50);
-            POOP.AddTile(TileID.MythrilAnvil);
+            POOP.AddIngredient(ModContent.ItemType<IgnisWood>(), 4);
+            POOP.AddTile(TileID.WorkBenches);
             POOP.SetResult(this);
             POOP.AddRecipe();
-
-            ModRecipe POOPE = new ModRecipe(mod);
-
-            POOPE.AddIngredient(ItemID.WoodenChair, 1);
-            POOPE.AddIngredient(ModContent.ItemType<szsb>(), 10);
-            POOPE.AddIngredient(ModContent.ItemType<Zen_s_Visulized_Power>(), 1);
-            POOPE.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 50);
-            POOPE.AddTile(TileID.MythrilAnvil);
-            POOPE.SetResult(this);
-            POOPE.AddRecipe();
         }
     }
 }

@@ -41,12 +41,62 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;//pee
         }//ima create some predraw shit. NAME: EnfyshingTentiticle ill add that
+        int ai = 0;
+        Vector2 Pos;
+        int PosOnOrOff = 0;
         public override void AI()
         {
-            npc.ResizeScaleOfJellyNPC();
-            if (Main.rand.Next(2,100) == 5)
+            npc.TargetClosest(true);
+            Player player = Main.player[npc.target];
+            Lighting.AddLight(npc.Center, 0, 0, 1);
+            if (PosOnOrOff == 0)
             {
-                SpawnProj(ModContent.ProjectileType<AquaSoulProj>());
+                npc.ResizeScaleOfJellyNPC(0f);
+                Pos = npc.position;
+                PosOnOrOff = 1;
+                npc.position += new Vector2(0, 1500);
+            }
+            else if (PosOnOrOff == 1)
+            {
+                npc.ResizeScaleOfJellyNPC(0.1f);
+                bool isAtleast50cmclosetothegivenpoint = Vector2.Distance(npc.position, Pos) < 10f;
+                npc.position = Vector2.Lerp(npc.position, Pos, 0.03f);
+                Dust dust = Dust.NewDustPerfect(npc.Center, DustID.BlueTorch, new Vector2(0, 0),0,default,1.3f);
+                Dust dust2 = Dust.NewDustPerfect(npc.Center + new Vector2(30,0), DustID.BlueTorch, new Vector2(0, 0), 0, default, 1.3f);
+                Dust dust3 = Dust.NewDustPerfect(npc.Center + new Vector2(-30, 0), DustID.BlueTorch, new Vector2(0, 0), 0, default, 1.3f);
+                if (isAtleast50cmclosetothegivenpoint)
+                {
+                    npc.ResizeScaleOfJellyNPC(0.15f);
+                    PosOnOrOff = 2;
+                    Main.PlaySound(SoundID.Roar, npc.position, 0);
+                    Main.LocalPlayer.CameraShake(12, 60);
+                    int numberofproj = 16;
+                    for (int i = 0; i < numberofproj; i++)
+                    {
+                        Vector2 spawnPos = new Vector2(npc.Center.X, npc.Center.Y + 76);
+                        Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
+
+                        VelPos.Normalize();
+                        Projectile.NewProjectile(spawnPos, VelPos * 2f, ModContent.ProjectileType<AquaSoulProj>(), 45, 9f, Main.myPlayer, 0, npc.whoAmI);
+                    }
+                }
+            }
+            else
+            {
+                npc.ResizeScaleOfJellyNPC(0f);
+                ai++;
+                if (ai == 150)
+                {
+                    SpawnProj(ModContent.ProjectileType<AquaSoulProj>(), 0);
+                }
+                if (ai == 220)
+                {
+                    SpawnProj(ModContent.ProjectileType<AquaSoulProj>(), 50);
+                }
+                if (ai > 700)
+                {
+                    ai = 0;
+                } 
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -71,19 +121,16 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
         }
         public override Color? GetAlpha(Color drawColor) => Color.White;
 
-        void SpawnProj(int Type)
+        void SpawnProj(int Type, int Offset)
         {
-            Projectile.NewProjectile(npc.position + new Vector2(0, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(50, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(-50, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(100, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(-100, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(150, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(-150, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(200, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(-200, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(250, 1800), Vector2.Zero, Type, 35, 9f);
-            Projectile.NewProjectile(npc.position + new Vector2(-250, 1800), Vector2.Zero, Type, 35, 9f);
+            Vector2 Position = npc.position + new Vector2(Offset, 0);
+            int numberofproj = 10;
+            for (int i = 0; i < numberofproj; i++)
+            {
+                int X = i * 100;
+                Projectile.NewProjectile(Position + new Vector2(X, 1600), Vector2.Zero, Type, 25, 9f);
+                Projectile.NewProjectile(Position + new Vector2(-X, 1600), Vector2.Zero, Type, 25, 9f);
+            }
         }
     }
 }

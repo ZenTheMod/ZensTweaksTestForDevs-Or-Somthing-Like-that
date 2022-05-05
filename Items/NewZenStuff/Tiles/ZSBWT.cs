@@ -53,5 +53,14 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles
 				}
 			}
 		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<szsb>());
+
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.SetResult(this, 4);
+			recipe.AddRecipe();
+		}
 	}
 }

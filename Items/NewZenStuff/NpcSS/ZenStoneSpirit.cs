@@ -14,8 +14,8 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zen-Stone Spirit");
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.DemonEye];
+            DisplayName.SetDefault("Zen Stone Watcher");
+            Main.npcFrameCount[npc.type] = 6;
         }
 
         public override void SetDefaults()
@@ -34,7 +34,6 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
             npc.lavaImmune = true;
 
             aiType = -1;
-            animationType = NPCID.DemonEye;
 
             npc.HitSound = SoundID.NPCHit2;
             npc.DeathSound = SoundID.NPCDeath51;
@@ -58,6 +57,7 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
         }
         public override void AI()
         {
+            Player player = Main.player[npc.target];
             if (!npc.noTileCollide)
             {
                 if (npc.collideX)
@@ -85,6 +85,7 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
                     }
                 }
             }
+            npc.rotation = (npc.Center - player.Center).ToRotation();
         }
         public override void NPCLoot()
         {
@@ -125,6 +126,25 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
                     Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/ZenStoneSpirit_Remains"), npc.scale);
                 }
             }
+        }
+        public override void FindFrame(int frameHeight)
+        {
+            npc.frameCounter += 1;
+            //Reset the counter every 60 ticks
+            if (npc.frameCounter >= 42)
+                npc.frameCounter = 0;
+
+            //Swap the frame used every 30 ticks
+            if (npc.frameCounter < 7)
+                npc.frame.Y = 0 * frameHeight;
+            else if (npc.frameCounter < 14)
+                npc.frame.Y = 1 * frameHeight;
+            else if (npc.frameCounter < 21)
+                npc.frame.Y = 2 * frameHeight;
+            else if (npc.frameCounter < 28)
+                npc.frame.Y = 4 * frameHeight;
+            else if (npc.frameCounter < 35)
+                npc.frame.Y = 5 * frameHeight;
         }
     }
 }

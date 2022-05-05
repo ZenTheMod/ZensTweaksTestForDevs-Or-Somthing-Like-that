@@ -10,7 +10,7 @@ namespace ZensTweakstest.Items.Slime.Tools
 	{
 		public override void SetDefaults() 
 		{
-			item.damage = 12;
+			item.damage = 5;
 			item.knockBack = 2;
 			item.hammer = 40;
 

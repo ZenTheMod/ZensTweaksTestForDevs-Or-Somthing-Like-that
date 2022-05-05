@@ -14,7 +14,6 @@ namespace ZensTweakstest.Items.HMmechZen
     {
         private int ai;
         private int doubleBeam;
-        private int doubleBeamC;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("◭Portal◮");//HEY THATS NOT WHAT THE SOMMONING ITEM WAS SUPPOSED TO TOOO!!!
@@ -23,15 +22,15 @@ namespace ZensTweakstest.Items.HMmechZen
         }
         public override void SetDefaults()
         {
-            npc.width = 118;
-            npc.height = 118;
+            npc.width = 256;
+            npc.height = 256;
 
             npc.boss = true;
             npc.aiStyle = -1;
             npc.npcSlots = 5f;
 
             npc.lifeMax = 5000;
-            npc.damage = 5;
+            npc.damage = 30;
             npc.defense = 15;
             npc.knockBackResist = 0f;
 
@@ -54,7 +53,7 @@ namespace ZensTweakstest.Items.HMmechZen
             for (int num93 = 1; num93 < npc.oldPos.Length; num93++)
             {
                 Vector2 drawPos = npc.oldPos[num93] - Main.screenPosition + drawOrigin + new Vector2(0f, npc.gfxOffY);
-                Color color = Main.DiscoColor * ((float)(NPCID.Sets.TrailCacheLength[npc.type] - num93) / (float)NPCID.Sets.TrailCacheLength[npc.type]);
+                Color color = Color.White * ((float)(NPCID.Sets.TrailCacheLength[npc.type] - num93) / (float)NPCID.Sets.TrailCacheLength[npc.type]);
                 spriteBatch.Draw(Portal, drawPos, null, color, npc.rotation, drawOrigin, npc.scale - num93 / (float)npc.oldPos.Length, SpriteEffects.None, 0f);//npc.scale - num93 / (float)npc.oldPos.Length
             }
             return true;
@@ -79,37 +78,26 @@ namespace ZensTweakstest.Items.HMmechZen
             npc.ai[0] = (float)ai * 1f;
 
             doubleBeam++;
-            if (doubleBeam > 250 && doubleBeam < 340)
-            {
-                doubleBeamC++;
-                Projectile.NewProjectile(npc.Center, new Vector2(7f).RotatedBy(MathHelper.ToRadians(doubleBeamC * 4)), ModContent.ProjectileType<PortalProj>(), 35, 9f);
-                Projectile.NewProjectile(npc.Center, new Vector2(7f).RotatedBy(MathHelper.ToRadians(doubleBeamC * 4 + 180)), ModContent.ProjectileType<PortalProj>(), 35, 9f);
-                if (Main.rand.Next(0,5) == 4)
-                {
-                    Main.PlaySound(SoundID.Item15, npc.position);
-                }
-            }
             if (doubleBeam == 250 || doubleBeam == 340)
             {
                 Main.PlaySound(SoundID.NPCDeath43, npc.position);
-                CircleRing(4, ModContent.ProjectileType<PortalProj>());
+                CircleRing(5, ModContent.ProjectileType<PortalProj>());
             }
             if (doubleBeam > 430)
             {
                 doubleBeam = 0;
-                doubleBeamC = 0;
             }
 
             if ((double)npc.ai[0] >= 90.0)
             {
-                CircleRing(8, ModContent.ProjectileType<PortalProj>());
+                CircleRing(2, ModContent.ProjectileType<PortalProj>());
                 ai = 0;
                 npc.ai[2] = 0;
             }
         }
         public override Color? GetAlpha(Color drawColor)
         {
-            return Main.DiscoColor;
+            return Color.White;
         }
         public override void NPCLoot()
         {

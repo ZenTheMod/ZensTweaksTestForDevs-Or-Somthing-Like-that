@@ -31,7 +31,7 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         public override void OpenBossBag(Player player)
         {
             player.TryGettingDevArmor();
-            switch (Main.rand.Next(4))
+            switch (Main.rand.Next(5))
             {
                 case 0:
                     player.QuickSpawnItem(ModContent.ItemType<ToxicGrenade>());
@@ -42,6 +42,9 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
                 case 2:
                     player.QuickSpawnItem(ModContent.ItemType<ToxicRevolverator>());
                     player.QuickSpawnItem(ModContent.ItemType<ToxicRocket>(), Main.rand.Next(50, 100));
+                    break;
+                case 3:
+                    player.QuickSpawnItem(ModContent.ItemType<NuclearRotation>());
                     break;
                 default:
                     player.QuickSpawnItem(ModContent.ItemType<Butcherer>());

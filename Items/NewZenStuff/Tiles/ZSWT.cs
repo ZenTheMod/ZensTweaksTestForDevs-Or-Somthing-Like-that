@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using ZensTweakstest.Items.Dusts;
 using ZensTweakstest.Items.NewZenStuff.Bosses;
+using ZensTweakstest.Items.NewZenStuff.Items;
 
 namespace ZensTweakstest.Items.NewZenStuff.Tiles
 {
@@ -42,6 +43,15 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.consumable = true;
 			item.createWall = ModContent.WallType<ZSWT>();
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<ZenStone_I>());
+
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.SetResult(this, 4);
+			recipe.AddRecipe();
 		}
 	}
 }

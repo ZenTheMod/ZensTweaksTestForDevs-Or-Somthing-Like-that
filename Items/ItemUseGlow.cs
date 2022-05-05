@@ -23,6 +23,14 @@ namespace QwertysRandomContent
         public override bool InstancePerEntity => true;
         public override bool CloneNewInstances => true;
         public bool autoGlow = false;
+        public static void Offset(Item item, int x, int y)
+        {
+            if (!Main.dedServ)
+            {
+                item.GetGlobalItem<ItemUseGlow>().glowOffsetX = x;
+                item.GetGlobalItem<ItemUseGlow>().glowOffsetY = y;
+            }
+        }
         public static void AutoLoadGlow(Item item, string glow = "_Glow")
         {
             if (!Main.dedServ)

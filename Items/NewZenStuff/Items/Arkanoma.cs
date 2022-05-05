@@ -1,5 +1,6 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
+using ZensTweakstest.Items.JupiterStuff;
 using ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot;
 using ZensTweakstest.Items.NewZenStuff.Bosses.SparkArmor;
 
@@ -32,7 +33,8 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
 
 			POOP.AddIngredient(ModContent.ItemType<ZenitrinBar>(), 5);
 			POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 25);
-			POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 75);
+			POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 25);
+			POOP.AddIngredient(ModContent.ItemType<CursedBone>(), 5);
 			POOP.AddTile(ModContent.TileType<ZCC_PLACED>());
 			POOP.SetResult(this);
 			POOP.AddRecipe();

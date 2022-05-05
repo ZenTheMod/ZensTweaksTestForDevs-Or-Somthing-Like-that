@@ -56,9 +56,10 @@ Very Dusty");
 		{
 			ModRecipe POOP = new ModRecipe(mod);
 
-			POOP.AddIngredient(ModContent.ItemType<ZenitrinBar>(), 15);
-			POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 15);
-			POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 85);
+			POOP.AddIngredient(ModContent.ItemType<ZenitrinBar>(), 5);
+			POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 10);
+			POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 15);
+			POOP.AddIngredient(ItemID.Cobweb, 20);
 			POOP.AddTile(ModContent.TileType<ZCC_PLACED>());
 			POOP.SetResult(this);
 			POOP.AddRecipe();
@@ -120,24 +121,25 @@ Very Dusty");
 			float strength = 2f;
 			Lighting.AddLight(projectile.position, Color.Red.ToVector3() * strength);
 			Vector2 shootPos = projectile.Center;
-			Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
 			if (Main.rand.Next(0, 50) == 7)
             {
-				for (int i = 0; i < 55; i++)
+				for (int i = 0; i < 15; i++)
 				{
 					Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-					Dust d = Dust.NewDustPerfect(projectile.position, ModContent.DustType<ZenStoneFlameDust>(), speed * 5, Scale: 1f);
-					d.noGravity = true;
+					Dust dust;
+					dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, speed.X, speed.Y, 0, default, 1.5f);
+					dust.noGravity = true;
 				}
 				Projectile.NewProjectile(shootPos.X, shootPos.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("RedYang"), projectile.damage, 5f, Main.myPlayer);
             }
 			if (Main.rand.Next(0, 50) == 7)
             {
-				for (int i = 0; i < 55; i++)
+				for (int i = 0; i < 15; i++)
 				{
 					Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-					Dust d = Dust.NewDustPerfect(projectile.position, ModContent.DustType<BlackStoneDust>(), speed * 5, Scale: 1f);
-					d.noGravity = true;
+					Dust dust;
+					dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Granite, speed.X, speed.Y, 0, default, 1.5f);
+					dust.noGravity = true;
 				}
 				Projectile.NewProjectile(shootPos.X, shootPos.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("BlackYang"), projectile.damage, 5f, Main.myPlayer);
 			}
@@ -182,7 +184,9 @@ Very Dusty");
 					projectile.frame = 0;
 				}
 			}
-			Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+			Dust dust;
+			dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+			dust.noGravity = true;
 			float speed = 10f;
 			float inertia = 40f;
 			float distanceFromTarget = 700f;
@@ -216,9 +220,11 @@ Very Dusty");
 		}
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < (Main.expertMode ? 55 : 50); i++)
+			for (int i = 0; i < 30; i++)
 			{
-				Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+				Dust dust;
+				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+				dust.noGravity = true;
 			}
 		}
 	}
@@ -261,7 +267,9 @@ Very Dusty");
 					projectile.frame = 0;
 				}
 			}
-			Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<BlackStoneDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+			Dust dust;
+			dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Granite, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+			dust.noGravity = true;
 			float speed = 10f;
 			float inertia = 40f;
 			float distanceFromTarget = 700f;
@@ -295,9 +303,11 @@ Very Dusty");
 		}
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < (Main.expertMode ? 55 : 50); i++)
+			for (int i = 0; i < 30; i++)
 			{
-				Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<BlackStoneDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+				Dust dust;
+				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Granite, projectile.velocity.X, projectile.velocity.Y, 0, default, 1.5f);
+				dust.noGravity = true;
 			}
 		}
 	}

@@ -18,6 +18,8 @@ using ZensTweakstest.Items.Nature;
 using ZensTweakstest.Config;
 using ZensTweakstest.Items.HMmechZen;
 using Terraria.GameInput;
+using Terraria.DataStructures;
+using ZensTweakstest.Items.buffs;
 
 namespace ZensTweakstest.Items
 {
@@ -48,6 +50,7 @@ namespace ZensTweakstest.Items
             dyeItemIDsPool.Add(ModContent.ItemType<MovingMangoDye>());
             dyeItemIDsPool.Add(ModContent.ItemType<StrokeDye>());
             dyeItemIDsPool.Add(ModContent.ItemType<ZenDye>());
+            dyeItemIDsPool.Add(ModContent.ItemType<GlyphDye>());
         }
         public override void FrameEffects()
         {
@@ -84,7 +87,7 @@ namespace ZensTweakstest.Items
             {
                 Filters.Scene.Deactivate("ZensTweakstest:Eric");
             }
-            
+
             if (NPC.AnyNPCs(ModContent.NPCType<SparkGaurdian>()))
             {
                 Filters.Scene.Activate("ZensTweakstest:SparkGaurdian");
@@ -97,6 +100,10 @@ namespace ZensTweakstest.Items
             if (ZenZone)
             {
                 Filters.Scene.Activate("ZensTweakstest:BiomeZenFilter");
+                if (!Main.dayTime)
+                {
+                    player.AddBuff(ModContent.BuffType<Peace>(), 10, true);
+                }
             }
             else
             {
@@ -177,6 +184,25 @@ else
                     Projectile.NewProjectile(spawnPos, VelPos * 8f, ModContent.ProjectileType<ZenFlameSheath>(), 45, 5f, Main.myPlayer);
                 }
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<VoidSheathRing>(), 0, 0f, Main.myPlayer);
+                for (int f = 0; f < 5; f++)
+                {
+                    int goreIndex = goreIndex = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 24f), default(Vector2), mod.GetGoreSlot("Gores/ZenTreeFX"), 1f);
+                    Main.gore[goreIndex].scale = 1.5f;
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                    goreIndex = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 24f), default(Vector2), mod.GetGoreSlot("Gores/ZenTreeFX"), 1f);
+                    Main.gore[goreIndex].scale = 1.5f;
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                    goreIndex = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 24f), default(Vector2), mod.GetGoreSlot("Gores/ZenTreeFX"), 1f);
+                    Main.gore[goreIndex].scale = 1.5f;
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+                    goreIndex = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 24f), default(Vector2), mod.GetGoreSlot("Gores/ZenTreeFX"), 1f);
+                    Main.gore[goreIndex].scale = 1.5f;
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+                }
             }
             if (ZensTweakstest.SheathHotkey.JustPressed && VoidSheathEQ == true && VoidSheathCoolDown >= 1)
             {
@@ -224,7 +250,7 @@ else
                     for (int i = 0; i < 15; i++)
                     {
                         speed = speed.RotatedByRandom(MathHelper.ToRadians(90));
-                        Projectile.NewProjectile(player.Top, speed, ModContent.ProjectileType<SlimeSpike>(), 4, 1, Main.myPlayer);
+                        Projectile.NewProjectile(player.Top, speed, ModContent.ProjectileType<SlimeSpike>(), 3, 1, Main.myPlayer);
                     }
                 }
             }
@@ -237,29 +263,43 @@ else
             }*/
             if (NPC.AnyNPCs(ModContent.NPCType<ErichusContainment>()))
             {
-                chatText = "AH! I cant heal you!, I need to stop this medical anomally!";
+                chatText = "Seriously??";
                 return false;
             }
             if (NPC.AnyNPCs(ModContent.NPCType<SparkGaurdian>()))
             {
-                chatText = "I cant heal while under the heat of this!!";
+                chatText = "Seriously??";
                 return false;
             }
             return base.ModifyNurseHeal(nurse, ref health, ref removeDebuffs, ref chatText);
         }
-        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+            public static readonly PlayerLayer MiscEffectsBack = new PlayerLayer("ZensTweakstest", "MiscEffectsBack", PlayerLayer.MiscEffectsBack, delegate (PlayerDrawInfo drawInfo)
+            {
+
+                Player drawPlayer = drawInfo.drawPlayer;
+                Mod mod = ModLoader.GetMod("ZensTweakstest");
+                Charred_Life modPlayer = drawPlayer.GetModPlayer<Charred_Life>();
+
+                Texture2D texture = mod.GetTexture("Void");
+
+                int drawX = (int)(drawInfo.position.X - Main.screenPosition.X + 10);
+                int drawY = (int)(drawInfo.position.Y - Main.screenPosition.Y - 10);
+
+                DrawData data = new DrawData(texture, new Vector2(drawX, drawY), null, Color.White, 0f, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, SpriteEffects.None, 0);
+
+                Main.playerDrawData.Add(data);
+
+            });
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             if (EternalVoid)
-            {
-                if (Main.rand.Next(0, 3) == 2)
-                {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, ModContent.DustType<EternalDust>(), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 0.3f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.8f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    Main.playerDrawDust.Add(dust);
-                }
-            }
+                MiscEffectsBack.visible = true;
+            else
+                MiscEffectsBack.visible = false;
+            layers.Insert(0, MiscEffectsBack);
+        }
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
             if (SlimeSetBounes)
             {
                 if (Main.rand.Next(0, 12) == 4)
@@ -273,9 +313,12 @@ else
             }
             if (VoidSheathEQ == true)
             {
-                Dust dust = Dust.NewDustDirect(player.Center, 0, player.height, DustID.Firework_Red);
-                Dust dust2 = Dust.NewDustDirect(player.Center + new Vector2(15,0), 0, player.height, DustID.Firework_Red);
-                Dust dust3 = Dust.NewDustDirect(player.Center - new Vector2(15, 0), 0, player.height, DustID.Firework_Red);
+                if (Main.rand.Next(0, 4) == 3)
+                {
+                    Dust dust = Dust.NewDustDirect(player.Center, 0, player.height, DustID.Firework_Red);
+                    Dust dust2 = Dust.NewDustDirect(player.Center + new Vector2(15, 0), 0, player.height, DustID.Firework_Red);
+                    Dust dust3 = Dust.NewDustDirect(player.Center - new Vector2(15, 0), 0, player.height, DustID.Firework_Red);
+                }
             }
             if (RubleTrail)
             {

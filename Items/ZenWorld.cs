@@ -16,6 +16,8 @@ using Terraria.GameContent.Generation;
 using Terraria.ObjectData;
 using Terraria.Enums;
 using ZensTweakstest.Items.CryoDepths;
+using ZensTweakstest.Items.NewZenStuff.Tiles.ZSF_I_T;
+using ZensTweakstest.Items.NewZenStuff.Lore;
 
 namespace ZensTweakstest.Items
 {
@@ -208,7 +210,7 @@ namespace ZensTweakstest.Items
         }
         private void DungeonX(GenerationProgress progress)
         {
-            progress.Message = "Zen Stone Evils...";
+            progress.Message = "Calm Cave...";
             NonWorldGenDungeonX = Main.dungeonX;
 
             //StructureHelper.Generator.GenerateStructure("WorldGen/SpaceBubbles", new Point16(120, 120), ModContent.GetInstance<ZensTweakstest>());//This Structure Line Is After The Biome Changes To Prevent Wall Distruction...
@@ -216,7 +218,20 @@ namespace ZensTweakstest.Items
             int RadiusBiome = 55;
             int biomeX = NonWorldGenDungeonX;
             int biomeY = Main.maxTilesY - 250 - RadiusBiome;
+            StructureHelper.Generator.GenerateStructure("WorldGen/ZenitrinBiome", new Point16(biomeX - 100, biomeY - 50), ModContent.GetInstance<ZensTweakstest>());
+            Vector2 PosChest = new Vector2(biomeX - 100 + 77 - 1, biomeY - 50 + 33 - 1);
+            WorldGen.KillTile((int)PosChest.X, (int)PosChest.Y);
+            WorldGen.KillTile((int)PosChest.X, (int)PosChest.Y - 1);
+            WorldGen.KillTile((int)PosChest.X + 1, (int)PosChest.Y);
+            WorldGen.KillTile((int)PosChest.X + 1, (int)PosChest.Y - 1);
+            WorldGen.KillTile((int)PosChest.X - 1, (int)PosChest.Y);
+            WorldGen.KillTile((int)PosChest.X - 1, (int)PosChest.Y - 1);
+            WorldGen.PlaceChest(biomeX - 100 + 77 - 1, biomeY - 50 + 33 - 1, (ushort)ModContent.TileType<IgnisWoodChestPlaced>());
+            //WorldGen.KillTile((int)PosChest.X, (int)PosChest.Y);
+            //WorldGen.PlaceTile((int)PosChest.X, (int)PosChest.Y, ModContent.TileType<ZenitrinBrickT>());
+
             StructureHelper.Generator.GenerateStructure("WorldGen/SpaceBubbles", new Point16(NonWorldGenDungeonX, 80), ModContent.GetInstance<ZensTweakstest>());//This Structure Line Is After The Biome Changes To Prevent Wall Distruction...
+            /*
             for (int x = biomeX - RadiusBiome; x < biomeX + RadiusBiome; x++)
             {
                 for (int y = biomeY - RadiusBiome; y < biomeY + RadiusBiome; y++)
@@ -243,10 +258,22 @@ namespace ZensTweakstest.Items
                             WorldGen.KillTile(x, y);
                             WorldGen.PlaceTile(x, y, ModContent.TileType<ZenitrinOre>());
                         }
-                        if (Framing.GetTileSafely(x, y).active() && Framing.GetTileSafely(x, y).type == TileID.Stalactite && Framing.GetTileSafely(x, y).frameX == 18 || Framing.GetTileSafely(x, y).frameX == 0 && Framing.GetTileSafely(x, y).frameY == 0)
+                        if (Framing.GetTileSafely(x, y).active() && Framing.GetTileSafely(x, y).type == TileID.Stalactite)
                         {
                             WorldGen.KillTile(x, y);
                             WorldGen.PlaceTile(x, y - 1, ModContent.TileType<AmbeintZen1X2T>());
+                        }
+                        if (!Main.tile[x, y].active() && WorldGen.genRand.Next(5) == 0)
+                        {
+                            if ((Main.tile[x, y - 1].type == ModContent.TileType<ZenStone>() || Main.tile[x, y - 1].type == 147 || Main.tile[x, y - 1].type == 161 || Main.tile[x, y - 1].type == 25 || Main.tile[x, y - 1].type == 203 || Main.tileStone[Main.tile[x, y - 1].type] || Main.tileMoss[Main.tile[x, y - 1].type]) && !Main.tile[x, y].active() && !Main.tile[x, y + 1].active())
+                            {
+                                Main.tile[x, y - 1].slope(0);
+                            }
+                            if ((Main.tile[x, y + 1].type == ModContent.TileType<ZenStone>() || Main.tile[x, y + 1].type == 147 || Main.tile[x, y + 1].type == 161 || Main.tile[x, y + 1].type == 25 || Main.tile[x, y + 1].type == 203 || Main.tileStone[Main.tile[x, y + 1].type] || Main.tileMoss[Main.tile[x, y + 1].type]) && !Main.tile[x, y].active() && !Main.tile[x, y - 1].active())
+                            {
+                                Main.tile[x, y + 1].slope(0);
+                            }
+                            WorldGen.PlaceTight(x, y, (ushort)ModContent.TileType<AmbeintZen1X2T>());
                         }
                         //WorldGen.KillWall(x, y);
                         //WorldGen.PlaceWall(x, y, ModContent.WallType<ZSWT>());
@@ -267,6 +294,24 @@ namespace ZensTweakstest.Items
             }
             StructureHelper.Generator.GenerateStructure("WorldGen/ZenHouse", new Point16(biomeX - 8, biomeY), ModContent.GetInstance<ZensTweakstest>());//This Structure Line Is After The Biome Changes To Prevent Wall Distruction...
             StructureHelper.Generator.GenerateStructure("WorldGen/WalledShrine", new Point16(biomeX - 5 + Main.rand.Next(-35, 35), biomeY + 28), ModContent.GetInstance<ZensTweakstest>());//This Structure Line Is After The Biome Changes To Prevent Wall Distruction...
+            StructureHelper.Generator.GenerateStructure("WorldGen/TheRoom", new Point16(biomeX - RadiusBiome - 50, biomeY - 25), ModContent.GetInstance<ZensTweakstest>());//This Structure Line Is After The Biome Changes To Prevent Wall Distruction...
+            /*Vector2 Pos = new Vector2(biomeX - RadiusBiome - 50, biomeY - 25);
+            Vector2 Posij = new Vector2(biomeX - RadiusBiome - 50 + 8, biomeY - 25 + 21);
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int j = 0; j < Main.maxTilesY; j++)
+                {
+                    if (i == Posij.X && j == Posij.Y)
+                    {
+                        int Index = WorldGen.PlaceChest((int)Posij.X, (int)Posij.Y, (ushort)ModContent.TileType<IgnisWoodChestPlaced>());//place the chest thing
+                        if (Index == -1)
+                        {
+                            mod.Logger.Debug("DeezNuts" + Posij.X + " " + Posij.Y);
+                            mod.Logger.Debug("DeezNuts2" + Pos.X + " " + Pos.Y);
+                        }
+                    }
+                }
+            }*/
         }
         //private void EndothermicTest(GenerationProgress progress)
         //{
@@ -315,6 +360,26 @@ namespace ZensTweakstest.Items
                     break;
                 }
             }
+            int[] itemsToPlaceInZenChests = { ModContent.ItemType<ZenStoneCreatures>() };
+            int itemsToPlaceInZenChestChoice = 0;
+            int ZenLoreSpawns = 0;
+
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+            {
+                if (ZenLoreSpawns > 2)
+                {
+                    return;
+                }
+                Chest chest = Main.chest[chestIndex];
+                if (chest != null && Main.tile[chest.x, chest.y].type == ModContent.TileType<IgnisWoodChestPlaced>())
+                {
+                    int InventoryIndex = 0;
+                    chest.item[InventoryIndex].SetDefaults(Main.rand.Next(itemsToPlaceInZenChests));
+                    itemsToPlaceInZenChestChoice = (itemsToPlaceInZenChestChoice + 1) % itemsToPlaceInZenChests.Length;
+                    ZenLoreSpawns++;
+                    break;
+                }
+            }
         }
     }
     public class AmbeintZen1X2T : ModTile
@@ -322,23 +387,30 @@ namespace ZensTweakstest.Items
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
-            TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
-            TileObjectData.addTile(Type);
-            disableSmartCursor = true;
+            Main.tileNoFail[Type] = true;
+            Main.tileObsidianKill[Type] = true;
+            Main.tileBlockLight[Type] = true;
 
             ModTranslation name = CreateMapEntryName();
             AddMapEntry(new Color(116, 94, 114), name);
         }
-        public override void SetSpriteEffects(int i, int j, ref SpriteEffects effects)
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height)
         {
-            if (i % 2 == 1)
-                effects = SpriteEffects.FlipHorizontally;
+            Tile tile = Main.tile[i, j];
+            if (tile.frameY <= 18 || tile.frameY == 72)
+            {
+                offsetY = -2;
+            }
+            else if ((tile.frameY >= 36 && tile.frameY <= 54) || tile.frameY == 90)
+            {
+                offsetY = 2;
+            }
+        }
+
+        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+        {
+            WorldGen.CheckTight(i, j);
+            return false;
         }
     }
 }

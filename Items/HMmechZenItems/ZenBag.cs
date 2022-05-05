@@ -33,6 +33,7 @@ namespace ZensTweakstest.Items.HMmechZenItems
         public override void OpenBossBag(Player player)
         {
             player.QuickSpawnItem(ModContent.ItemType<VoidSheath>());
+            player.QuickSpawnItem(ModContent.ItemType<Clinger_Fruit>(), 10);
             switch (Main.rand.Next(6))
             {
                 case 0:

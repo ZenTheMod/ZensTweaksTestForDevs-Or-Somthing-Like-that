@@ -18,6 +18,10 @@ namespace ZensTweakstest.Items.HMmechZenItems.BossCosmetics
         {
             DisplayName.SetDefault("Music Box (Glitch Glitchy - By Zen)");
         }
+        Color[] cycleColors = new Color[]{
+            new Color(87, 0, 219),
+            new Color(0, 0, 0)
+        };
         public override void SetDefaults()
         {
             item.useStyle = ItemUseStyleID.SwingThrow;
@@ -36,14 +40,22 @@ namespace ZensTweakstest.Items.HMmechZenItems.BossCosmetics
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            return Main.DiscoColor;
+            float fade = Main.GameUpdateCount % 60 / 60f;
+            int index = (int)(Main.GameUpdateCount / 60 % 2);
+            return Color.Lerp(cycleColors[index], cycleColors[(index + 1) % 2], fade);;
         }
     }
     public class PortalMusicBoxPlaced : ModTile
     {
+        Color[] cycleColors = new Color[]{
+            new Color(87, 0, 219),
+            new Color(0, 0, 0)
+        };
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
         {
-            drawColor = Main.DiscoColor;
+            float fade = Main.GameUpdateCount % 60 / 60f;
+            int index = (int)(Main.GameUpdateCount / 60 % 2);
+            drawColor = Color.Lerp(cycleColors[index], cycleColors[(index + 1) % 2], fade); ;
         }
         public override void SetDefaults()
         {

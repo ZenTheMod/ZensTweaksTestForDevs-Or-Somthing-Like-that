@@ -27,7 +27,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zen-Stone Pillar Wall");
+			DisplayName.SetDefault("Zen Stone Pillar Wall");
 		}
 		public override void SetDefaults()
 		{

@@ -31,7 +31,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
             projectile.height = 40;
             projectile.alpha = 255;
             projectile.aiStyle = -1;
-            projectile.timeLeft = 600;
+            projectile.timeLeft = 200;
             projectile.penetrate = -1;
             projectile.hostile = true;
             projectile.magic = true;
@@ -41,10 +41,6 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
 
         public override void AI()
         {
-            if (Main.rand.Next(0, 5) == 4)
-            {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
-            }
             float speed = 8f;
             float inertia = 40f;
             float distanceFromTarget = 700f;
@@ -77,9 +73,12 @@ namespace ZensTweakstest.Items.NewZenStuff.Bosses
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < (Main.expertMode ? 55 : 50); i++)
+            for (int i = 0; i < 20; i++)
             {
                 Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneFlameDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust dust;
+                dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.LifeDrain, projectile.velocity.X / 2, projectile.velocity.Y / 2, 0, default, 1.5f);
+                dust.noGravity = true;
             }
         }
     }

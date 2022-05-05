@@ -20,7 +20,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Projectilles
         {
             projectile.width = 38;
             projectile.height = 38;
-
+            projectile.tileCollide = false;
             projectile.aiStyle = 27;
             projectile.hostile = true;
             projectile.penetrate = 5;

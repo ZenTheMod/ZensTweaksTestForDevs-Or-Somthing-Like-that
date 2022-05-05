@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ZensTweakstest.Helper;
+using ZensTweakstest.Items.TheBanners;
 
 namespace ZensTweakstest.Items.CryoDepths.Enfyshing
 {
@@ -26,7 +27,7 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
             npc.aiStyle = -1;
             npc.damage = 25;
             npc.defense = 1;
-            npc.lifeMax = 250;
+            npc.lifeMax = 50;
             npc.knockBackResist = 0.9f;
             npc.value = 125f;
 
@@ -35,7 +36,8 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
             npc.lavaImmune = true;
             npc.noGravity = true;
             npc.noTileCollide = true;
-
+            banner = npc.type;
+            bannerItem = ModContent.ItemType<AquaSoulBanner>();
             npc.HitSound = SoundID.NPCHit35;
             npc.DeathSound = SoundID.NPCDeath39;
         }
@@ -102,6 +104,14 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
                 pool[NPCID.BlueJellyfish] = 12;
             }
         }
+        public override void NPCLoot(NPC npc)
+        {
+            if (npc.type == NPCID.BlueJellyfish)
+            {
+                if (Main.rand.Next(1,50) == 15)
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<JellyMembrane>());
+            }
+        }
     }
     public class AquaSoulProj : ModProjectile
     {
@@ -119,8 +129,14 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
         }
+        int Preveiw = 0;
         public override void AI()
         {
+            if (Preveiw == 0)
+            {
+                Projectile.NewProjectile(projectile.Center + new Vector2(0, -1600), Vector2.Zero, ModContent.ProjectileType<SpiritWarning>(), 0, 9f);
+            }
+            Preveiw = 1;
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if (++projectile.frameCounter >= 5)
             {
@@ -130,11 +146,32 @@ namespace ZensTweakstest.Items.CryoDepths.Enfyshing
                     projectile.frame = 0;
                 }
             }
-            projectile.velocity += new Vector2(0, -0.1f);
+            projectile.velocity += new Vector2(0, -0.05f);
         }
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
+        }
+    }
+    public class SpiritWarning : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            projectile.width = 2;
+            projectile.height = 100;
+            projectile.aiStyle = -1;
+            projectile.ignoreWater = true;
+            projectile.tileCollide = true;
+            projectile.aiStyle = -1;
+            projectile.timeLeft = 300;
+        }
+        public override void AI()
+        {
+            projectile.alpha += 1;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * ((255 - projectile.alpha) / 255f);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ZensTweakstest.Items.Slime.Weapons
 	{
 		public override void SetDefaults() 
 		{
-			item.damage = 12;
+			item.damage = 10;
 			item.thrown = true;
 			item.knockBack = 6;
 			item.noMelee = true;

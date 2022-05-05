@@ -9,16 +9,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using ZensTweakstest.Items;
 using System;
+using ReLogic.Graphics;
+using Terraria.UI.Chat;
+using ZensTweakstest.Items.NewZenStuff.Bosses.Loot.BagLoot;
 
 namespace ZensTweakstest.Helper
 {
     public class ZCamera : ModPlayer
     {
         public int camerashake;
-		public int camerashakeforced;
-		public int camerashakeforcedtimer;
-		public override void ModifyScreenPosition() {
-			Vector2 centerScreen = new Vector2(Main.screenWidth/2,Main.screenHeight/2);
+        public int camerashakeforced;
+        public int camerashakeforcedtimer;
+        public override void ModifyScreenPosition() {
+            Vector2 centerScreen = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
             if (camerashake > 0)
             {
                 Main.screenPosition += new Vector2(Main.rand.Next(-camerashake, camerashake + 1), Main.rand.Next(-camerashake, camerashake + 1));
@@ -33,10 +36,52 @@ namespace ZensTweakstest.Helper
                 camerashake += camerashakeforced;
                 camerashakeforced = 0;
             }
-		}
+        }
     }
     public static class Helplul
     {
+        public static string DestroyChatTags(string text)
+        {
+            var snippetList = ChatManager.ParseMessage(text, Color.White);
+            string outputText = "";
+            foreach (var i in snippetList)
+            {
+                if (!i.TextOriginal.Contains("[i")) { outputText += i.Text; }
+            }
+            return outputText;
+        }
+        public static Color CycleColor(params Color[] color)
+        {
+            float fade = Main.GameUpdateCount % 60 / 60f;
+            int index = (int)(Main.GameUpdateCount / 60 % color.Length);
+            return Color.Lerp(color[index], color[(index + 1) % color.Length], fade);
+        }
+        public static Color CycleColor(int update, params Color[] color)
+        {
+            float fade = Main.GameUpdateCount % update / (float)update;
+            int index = (int)(Main.GameUpdateCount / update % color.Length);
+            return Color.Lerp(color[index], color[(index + 1) % color.Length], fade);
+        }
+        public static Vector2 MeasureString(this string text, DynamicSpriteFont font = null)
+        {
+            if (font == null) { font = Main.fontMouseText; }
+            TextSnippet[] snippets = ChatManager.ParseMessage(text, Color.White).ToArray();
+            return ChatManager.GetStringSize(font, snippets, Vector2.One);
+        }
+        public static void BeginDyeShader(this SpriteBatch spriteBatch, int id, Entity entity, bool end = false, bool ui = false)
+        {
+            spriteBatch.BeginImmediate(end, ui);
+            GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(id), entity, null);
+        }
+        public static void BeginImmediate(this SpriteBatch spriteBatch, bool end = false, bool ui = false, bool additive = false)
+        {
+            if (end) { spriteBatch.End(); }
+            var scale = Main.GameViewMatrix.ZoomMatrix;
+            if (ui) { scale = Main.UIScaleMatrix; }
+            BlendState blend = null;
+            if (additive) { blend = BlendState.Additive; }
+            spriteBatch.Begin(SpriteSortMode.Immediate, blend, null, null, null, null, scale);
+        }
         //Player
         public static void CameraShake(this Player player, int a, int b = 0) {
             player.GetModPlayer<ZCamera>().camerashakeforcedtimer = b;

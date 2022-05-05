@@ -78,13 +78,6 @@ namespace ZensTweakstest.Items.HMmechZen
         {
             totalIncrease++;
             Dust.NewDustPerfect(npc.Center + new Vector2(0, -10), DustID.RedTorch, new Vector2(7f).RotatedBy(MathHelper.ToRadians(totalIncrease)));
-            if (ZenWorld.DownedMechZen)
-            {
-                if (dialouge == 0.5)
-                {
-                    Main.NewText("MechZen.Refight.Start Boatloaded LOG:Please join the pain party.", Color.Red, false);
-                }
-            }
             increase++;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
@@ -169,6 +162,29 @@ namespace ZensTweakstest.Items.HMmechZen
                     if (!NPC.AnyNPCs(ModContent.NPCType<ZenHandLeft>()) && !NPC.AnyNPCs(ModContent.NPCType<ZenHandRight>()))
                     {
                         Dialouge2+=0.5;
+                        if (Dialouge2 == 1)
+                        {
+                            npc.life = npc.lifeMax / (int)2.5f;
+                            for (int f = 0; f < 5; f++)
+                            {
+                                int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                                Main.gore[goreIndex].scale = 1.5f;
+                                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                                Main.gore[goreIndex].scale = 1.5f;
+                                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                                Main.gore[goreIndex].scale = 1.5f;
+                                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+                                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                                Main.gore[goreIndex].scale = 1.5f;
+                                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+                            }
+                        }
                         if (Dialouge2 == 30)
                         {
                             Main.NewText("Well.", Color.Red, false);
@@ -259,6 +275,7 @@ namespace ZensTweakstest.Items.HMmechZen
             }
             else
             {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Clinger_Fruit>(), 10);
                 switch (Main.rand.Next(6))
                 {
                     case 0:

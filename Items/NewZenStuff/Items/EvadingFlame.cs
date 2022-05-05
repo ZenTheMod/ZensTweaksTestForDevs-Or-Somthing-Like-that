@@ -44,7 +44,7 @@ namespace ZensTweakstest.Items.NewZenStuff.Items
 
             POOP.AddIngredient(ModContent.ItemType<ZenitrinBar>(), 10);
             POOP.AddIngredient(ModContent.ItemType<ZenStone_I>(), 5);
-            POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 50);
+            POOP.AddIngredient(ModContent.ItemType<Zen_Peeve_Essence>(), 20);
             POOP.AddTile(ModContent.TileType<ZCC_PLACED>());
             POOP.SetResult(this);
             POOP.AddRecipe();

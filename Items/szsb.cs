@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using ZensTweakstest.Items.NewZenStuff.Tiles;
 
 namespace ZensTweakstest.Items
 {
@@ -44,6 +45,15 @@ namespace ZensTweakstest.Items
                     tooltipLine.overrideColor = new Color(127, 36, 64); //change the color accordingly to above not...
                 }
             }
+        }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<ZSBWI>());
+
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(this, 4);
+            recipe.AddRecipe();
         }
     }
 }

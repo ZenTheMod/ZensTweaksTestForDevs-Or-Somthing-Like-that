@@ -12,9 +12,10 @@ namespace ZensTweakstest.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zen's Holy Shard");
+            DisplayName.SetDefault("Mech Heart");
             Tooltip.SetDefault("It reasonates with fragmented energy. " +
-                "Increases your max life by 5");
+                "\nIncreases max life by 5." +
+                "\nUse up to 10 times.");
         }
         public override void SetDefaults()
         {
@@ -23,6 +24,7 @@ namespace ZensTweakstest.Items
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/gl_Glow");
             }
+            item.rare = 4;
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -47,7 +49,7 @@ namespace ZensTweakstest.Items
         }
         public override bool CanUseItem(Player player)
         {
-            return player.statLifeMax >= 500 && player.GetModPlayer<Charred_Life>().charredlife < Charred_Life.maxcharredlife;
+            return player.GetModPlayer<Charred_Life>().charredlife < Charred_Life.maxcharredlife;
         }
 
         public override bool UseItem(Player player)
@@ -70,20 +72,6 @@ namespace ZensTweakstest.Items
                 d2.noGravity = true;
             }
             return true;
-        }
-
-        public override void AddRecipes()
-        {
-            ModRecipe ppdr = new ModRecipe(mod);
-            ppdr.AddIngredient(ItemID.BeetleHusk, 10);
-            ppdr.AddIngredient(ItemID.VioletHusk, 1);
-            ppdr.AddIngredient(ItemID.CyanHusk, 1);
-            ppdr.AddIngredient(ItemID.RedHusk, 1);
-            ppdr.AddIngredient(ItemID.LifeFruit, 3);
-            ppdr.AddIngredient(ModContent.ItemType<ZenStone_I>(), 40);
-            ppdr.AddTile(TileID.DemonAltar);
-            ppdr.SetResult(this, 1);
-            ppdr.AddRecipe();
         }
     }
 }

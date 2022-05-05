@@ -14,6 +14,7 @@ using ZensTweakstest.Items.NewNonZen.Erichus.Boss;
 using Terraria.Graphics.Shaders;
 using ZensTweakstest.Items.NewZenStuff.Bosses;
 using ZensTweakstest.Items.Dusts;
+using ZensTweakstest.Helper;
 
 namespace ZensTweakstest.Items.NewNonZen.Erichus
 {
@@ -70,55 +71,6 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 64, 32, ModContent.ItemType<ShrineEricI>());
-        }
-        public override bool NewRightClick(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !NPC.AnyNPCs(ModContent.NPCType<ErichusContainment>()) && !Main.dayTime)
-            {
-                Main.NewText("The Moon Glows Green", 15, 168, 18, false);
-                CombatText.NewText(player.Hitbox, new Color(15, 168, 18), "The Moon Glows Green", true, false);
-                Main.PlaySound(SoundID.Mech, i * 16, j * 16, 0);
-                //NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<ErichusContainment>());
-                int tileHeight = 18;
-                if (Framing.GetTileSafely(i, j).frameX != 0)//WORKS 100%!!!!!!!!!! DO NOT CHANGE THIS LINE
-                    i--;//WORKS 100%!!!!!!!!!! DO NOT CHANGE THIS LINE
-                if (Framing.GetTileSafely(i, j).frameY != 0)
-                    j -= Framing.GetTileSafely(i, j).frameY / tileHeight;
-                //NPC.NewNPC(i * 16, j * 16 - 600, ModContent.NPCType<ErichusContainment>());//UGH
-
-                int npcType = ModContent.NPCType<ErichusContainment>();
-                var player2 = Main.LocalPlayer;
-                Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0, 1f, 0f);
-                if (Main.netMode != 1)
-                {
-                    NPC.SpawnOnPlayer(player2.whoAmI, npcType);
-                }
-                else
-                {
-                    Item.NewItem(i, j, 16, 16, ModContent.ItemType<OminousFlesh>());
-                    //int spawned = NPC.NewNPC(i * 16, j * 16 - 600, ModContent.NPCType<ErichusContainment>());
-                    //NetMessage.SendData(MessageID.SyncNPC, number: spawned);
-                }
-
-                //PAIN
-                Projectile.NewProjectile(new Vector2(i * 16, j * 16) + new Vector2(16, 0), new Vector2(0, 0), ModContent.ProjectileType<Loot.Toxiblast>(), 0, 0);//517p 44g 39s 18c
-                Projectile.NewProjectile(new Vector2(i * 16, j * 16) + new Vector2(16, 0), new Vector2(0, -7), ModContent.ProjectileType<SinProj>(), 0, 0);
-                int numberofproj = 5;
-                for (int L = 0; L < numberofproj; L++)
-                {
-                    Vector2 spawnPos = new Vector2(i * 16, j * 16) + new Vector2(16, 0);
-                    Vector2 VelPos = new Vector2((float)Math.Cos((float)2 * i * MathHelper.Pi / numberofproj), (float)Math.Sin((float)2 * i * MathHelper.Pi / numberofproj));
-
-                    VelPos.Normalize();
-                    Projectile.NewProjectile(spawnPos, VelPos * 7f, ModContent.ProjectileType<ErichusBonhus>(), 1, 0f);
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
@@ -180,7 +132,8 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ominous Shrine");
-            Tooltip.SetDefault("A ominous shrine, perhaps if requirments were met it would activate.");
+            Tooltip.SetDefault("A ominous shrine, perhaps if ofering are gifted something will happen?" +
+                "\nIts a boss summon idiot.");
         }
         public override void SetDefaults()
         {
@@ -199,8 +152,44 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         }
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
+            if (line.mod == "Terraria" && line.Name == "Tooltip1")
+            { // replace # to the tooltip number in Tooltip.SetDefaults(), 0 is the first tooltip
+              // we end and begin a Immediate spriteBatch for shader
+                Vector2 messageSize = Helplul.MeasureString(line.text);
+                Rectangle rec = new Rectangle(line.X - 40, line.Y - 2, (int)messageSize.X + 88, (int)messageSize.Y);
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, Color.Black);
+                Main.spriteBatch.BeginImmediate(true, true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Color color = Helplul.CycleColor(Color.Lime, Color.Green);
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, color);
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                // redraw the tooltip
+                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1);
+                // we end and begin a deffered spriteBatch so it doesnt break everything
+                Main.spriteBatch.BeginImmediate(true, true);
+                // return false so vanilla doesnt draw it
+                return false;
+            }
+            // this is the item name redrawing
             if (line.mod == "Terraria" && line.Name == "ItemName")
             {
+                // we calculate the rectangle 
+                Vector2 messageSize = Helplul.MeasureString(line.text);
+                Rectangle rec = new Rectangle(line.X - 40, line.Y - 2, (int)messageSize.X + 88, (int)messageSize.Y);
+                // we end and begin a Immediate spriteBatch for shader
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, Color.Black);
+                Main.spriteBatch.BeginImmediate(true, true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Color color = Helplul.CycleColor(Color.Lime, Color.Green);
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, color);
+                // we end and begin a deffered spriteBatch so it doesnt break everything
+                Main.spriteBatch.BeginImmediate(true, true);
+                // return false so vanilla doesnt draw it
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
                 GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.TwilightDye), item, null); //use living rainbow dye shader
@@ -209,6 +198,7 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
                 return false;
             }
+            // any other line just draw normally
             return true;
         }
     }
@@ -247,7 +237,7 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Looks tasty?" +
-                "\nA feast for me and the boys...");
+                "\nA perfect offering.");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
         public override void SetDefaults()
@@ -264,8 +254,44 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
         }
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
+            if (line.mod == "Terraria" && line.Name == "Tooltip0")
+            { // replace # to the tooltip number in Tooltip.SetDefaults(), 0 is the first tooltip
+              // we end and begin a Immediate spriteBatch for shader
+                Vector2 messageSize = Helplul.MeasureString(line.text);
+                Rectangle rec = new Rectangle(line.X - 40, line.Y - 2, (int)messageSize.X + 88, (int)messageSize.Y);
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, Color.Black);
+                Main.spriteBatch.BeginImmediate(true, true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Color color = Helplul.CycleColor(Color.Lime, Color.Green);
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, color);
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                // redraw the tooltip
+                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1);
+                // we end and begin a deffered spriteBatch so it doesnt break everything
+                Main.spriteBatch.BeginImmediate(true, true);
+                // return false so vanilla doesnt draw it
+                return false;
+            }
+            // this is the item name redrawing
             if (line.mod == "Terraria" && line.Name == "ItemName")
             {
+                // we calculate the rectangle 
+                Vector2 messageSize = Helplul.MeasureString(line.text);
+                Rectangle rec = new Rectangle(line.X - 40, line.Y - 2, (int)messageSize.X + 88, (int)messageSize.Y);
+                // we end and begin a Immediate spriteBatch for shader
+                Main.spriteBatch.BeginImmediate(true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, Color.Black);
+                Main.spriteBatch.BeginImmediate(true, true, true);
+                GameShaders.Misc["WaveWrapZ"].UseOpacity((float)Main.GameUpdateCount / 500f).Apply();
+                Color color = Helplul.CycleColor(Color.Lime, Color.Green);
+                Main.spriteBatch.Draw(ModContent.GetTexture("ZensTweakstest/Helper/NotMyBalls"), rec, color);
+                // we end and begin a deffered spriteBatch so it doesnt break everything
+                Main.spriteBatch.BeginImmediate(true, true);
+                // return false so vanilla doesnt draw it
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
                 GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.TwilightDye), item, null); //use living rainbow dye shader
@@ -274,17 +300,31 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
                 return false;
             }
+            // any other line just draw normally
             return true;
         }
         public override bool UseItem(Player player)
         {
             if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !NPC.AnyNPCs(ModContent.NPCType<ErichusContainment>()) && !Main.dayTime)
             {
-                Main.NewText("The Moon Glows Green", 15, 168, 18, false);
-                CombatText.NewText(player.Hitbox, new Color(15, 168, 18), "The Moon Glows Green", true, false);
-                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<ErichusContainment>());
-                Main.PlaySound(SoundID.Roar, player.position, 0);
-                return true;
+                for (int x = 0; x < Main.maxTilesX; x++)
+                {
+                    for (int y = 0; y < Main.maxTilesY; y++)
+                    {
+                        if (Framing.GetTileSafely(x, y).active() && (Framing.GetTileSafely(x, y).type == ModContent.TileType<ShrineEric>()) && (Framing.GetTileSafely(x, y).frameX == 18) && (Framing.GetTileSafely(x, y).frameY == 0))
+                        {
+                            Vector2 Spawn = new Vector2(x * 16 + 8, y * 16 - 16);
+                            if (Vector2.Distance(player.position, Spawn) <= 200)
+                            {
+                                Main.NewText("You feel like your going to faint.", 255, 1, 0, false);
+                                NPC.NewNPC((int)Spawn.X, (int)Spawn.Y, ModContent.NPCType<ErichusContainment>());
+                                player.CameraShake(23, 50);
+                            }
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
             return false;
         }

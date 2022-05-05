@@ -44,8 +44,20 @@ namespace ZensTweakstest.Items.NewZenStuff.Tiles
 	}
 	public class ZenGrassTile : ModTile
     {
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			Tile tile = Main.tile[i, j];
+			if (tile.frameX == 0)
+			{
+				// We can support different light colors for different styles here: switch (tile.frameY / 54)
+				r = 1f;
+				g = 0f;
+				b = 0f;
+			}
+		}
 		public override void SetDefaults()
 		{
+			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlendAll[Type] = true;
 			Main.tileMergeDirt[Type] = true;

@@ -32,8 +32,8 @@ namespace ZensTweakstest.Items.NewNonZen.Erichus.Boss
             npc.aiStyle = -1;
             npc.npcSlots = 5f;
 
-            npc.lifeMax = 9000;
-            npc.damage = 140;
+            npc.lifeMax = 30000;
+            npc.damage = 100;
             npc.defense = 13;
             npc.knockBackResist = 0f;
 

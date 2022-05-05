@@ -54,5 +54,14 @@ namespace ZensTweakstest.Items.CryoDepths
             item.autoReuse = true;
             item.createTile = ModContent.TileType<BlueIce>();
         }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<BlueIceWallItem>(),4);
+
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

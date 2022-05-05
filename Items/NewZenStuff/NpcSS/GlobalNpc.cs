@@ -9,6 +9,7 @@ using ZensTweakstest.Items.NewNonZen.Erichus.Loot;
 using ZensTweakstest.Items.NewNonZen.Erichus;
 using ZensTweakstest.Items.NewNonZen.Erichus.Boss;
 using ZensTweakstest.Items.NewNonZen;
+using ZensTweakstest.Items.EventItems;
 
 namespace ZensTweakstest.Items.NewZenStuff.NpcSS
 {
@@ -24,7 +25,7 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
                 }
                 if (Main.rand.Next(0, 9) == 4 && ZenWorld.DownedEric)
                 {
-                    chat = "So you did it. [c/63ff47:Erichus] what is it?";
+                    chat = "So you did it. [c/63ff47:Erichus] what is it? a mech?";
                 }
             }
         }
@@ -112,7 +113,7 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
         {
             if (npc.type == NPCID.SkeletronHead)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<CursedBone>(), Main.rand.Next(1, 7));
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<CursedBone>(), Main.rand.Next(5, 16));
             }
         }
     }
@@ -124,6 +125,11 @@ namespace ZensTweakstest.Items.NewZenStuff.NpcSS
             {
                 if (Main.rand.Next(1, 9) == 5)
                 player.QuickSpawnItem(ModContent.ItemType<slimy>(), 1);
+            }
+            if (context == "bossBag" && arg == ItemID.KingSlimeBossBag)
+            {
+                if (Main.rand.Next(1, 13) == 5)
+                    player.QuickSpawnItem(ModContent.ItemType<DonutShoes>(), 1);
             }
         }
     }

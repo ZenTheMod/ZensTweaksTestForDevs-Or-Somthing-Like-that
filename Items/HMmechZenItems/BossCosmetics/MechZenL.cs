@@ -16,11 +16,11 @@ namespace ZensTweakstest.Items.HMmechZenItems.BossCosmetics
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mech Zen");
-            Tooltip.SetDefault("Banished from his realm forced to scavenge the void for anything." +
-                "\nLeft alone to suffer. But not for long as he soon mechanicalized himself with the reasources he had found." +
-                "\nIf You didnt come to slow him down he would become a god," +
-                "\na destructive power too soon and would kill everything. But you must make upgrades fast before he gains more power than you." +
-                "\nYou dont have to long.");
+            Tooltip.SetDefault("1st line of Zens defenses" +
+                "\nHe can not keep postponing the invitable he will need to challenge this world." +
+                "\nThis self replica was poorly made." +
+                "\nAll flaws in this one." +
+                "\nNumber 47");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
         public override void SetDefaults()

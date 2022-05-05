@@ -53,11 +53,11 @@ namespace ZensTweakstest.Items
             projectile.height = newHeight;
             projectile.Center = oldCenter;
         }
-        public static void ResizeScaleOfJellyNPC(this NPC npc)
+        public static void ResizeScaleOfJellyNPC(this NPC npc, float extrasize)
         {
             Vector2 oldCenter = npc.Center;
             float SinWave = (float)Math.Sin(Main.GameUpdateCount / 35f);
-            npc.scale = SinWave / 10f + 1f;
+            npc.scale = SinWave / 10f + 1f + extrasize;
             npc.Center = oldCenter;
         }
     }

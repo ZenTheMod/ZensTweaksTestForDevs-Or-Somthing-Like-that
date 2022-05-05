@@ -86,8 +86,8 @@ namespace ZensTweakstest.Items
 
         public override void SetDefaults()
         {
-            projectile.width = 88;
-            projectile.height = 88;
+            projectile.width = 28;
+            projectile.height = 48;
 
             projectile.aiStyle = 27;
             projectile.friendly = true;
@@ -103,6 +103,7 @@ namespace ZensTweakstest.Items
             {
                 Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<DoorPinkPar>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -160,6 +161,7 @@ namespace ZensTweakstest.Items
         public override void AI()
         {
             projectile.velocity.Y += projectile.ai[0];
+            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<ZenStoneDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
         }
 

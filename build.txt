@@ -1,6 +1,6 @@
-displayName = [c/7f2440:Fall of Zen] - [c/85d1e6:Rise of End]
+displayName = [c/#322a58:Fall of Zen] Shimmer and Shine
 author = Zen
-version = 3.6
+version = 3.8.2
 dllReferences = StructureHelper
 hideCode = false
 includeSource = true
